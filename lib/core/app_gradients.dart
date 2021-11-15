@@ -6,15 +6,15 @@ class AppGradients {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        AppColors.green800,
+        AppColors.green700,
         AppColors.green600,
         AppColors.green500,
-        AppColors.green400,
+        AppColors.green200,
       ],
       stops: [
         0.1,
         0.4,
-        0.7,
+        0.8,
         0.9,
       ]);
 }
