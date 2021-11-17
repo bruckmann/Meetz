@@ -12,7 +12,7 @@ class SplashPage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return AnimatedSplashScreen(
-      splash: Image.asset('images/rui.jpeg'),
+      splash: Image.asset('assets/images/rui.jpeg'),
       nextScreen: (SignInPage()),
       splashTransition: SplashTransition.slideTransition,
       pageTransitionType: PageTransitionType.bottomToTop,

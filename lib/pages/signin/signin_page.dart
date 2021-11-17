@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/core/app_gradients.dart';
-import 'package:meetz/pages/signin/widgtes/remember_me/remember_me_widget.dart';
+//import 'package:meetz/pages/signin/widgtes/remember_me/remember_me_widget.dart';
 import 'package:meetz/pages/signin/widgtes/signup_button/signup_button_widget.dart';
 import 'package:meetz/shared/widgets/button_widget.dart';
 import 'package:meetz/shared/widgets/input_widget.dart';
