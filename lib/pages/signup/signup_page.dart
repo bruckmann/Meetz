@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:meetz/core/app_gradients.dart';
-import 'package:meetz/pages/login/widgtes/remember_me/remember_me_widget.dart';
-import 'package:meetz/pages/login/widgtes/signup_button/signup_button_widget.dart';
+import 'package:meetz/core/core.dart';
 import 'package:meetz/shared/widgets/button_widget.dart';
 import 'package:meetz/shared/widgets/input_widget.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +22,22 @@ class LoginPage extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 padding:
-                    EdgeInsets.symmetric(horizontal: 40.0, vertical: 190.0),
+                    EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0),
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Meetz",
+                      "Sign Up",
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'OpenSans',
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 30.0),
+                    InputWidget(
+                      label: "Name",
+                      placeHolder: "Enter your full name",
+                      icon: Icons.person,
                     ),
                     SizedBox(height: 30.0),
                     InputWidget(
@@ -47,10 +51,15 @@ class LoginPage extends StatelessWidget {
                       placeHolder: "Enter your password",
                       icon: Icons.lock,
                     ),
+                    SizedBox(height: 30),
+                    InputWidget(
+                      label: "Confirm password",
+                      placeHolder: "Enter your password",
+                      icon: Icons.lock,
+                    ),
                     SizedBox(height: 20),
                     //RememberMeWidget(),
-                    ButtonWidget(text: 'LOGIN'),
-                    SignUpButton()
+                    ButtonWidget(text: 'REGISTER'),
                   ],
                 ),
               )),
