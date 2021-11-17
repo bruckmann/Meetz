@@ -15,8 +15,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  animated_splash_screen: ^1.1.0
 flutter:
   assets:
-    - assets/images/
+    - images/
     
   uses-material-design: true
