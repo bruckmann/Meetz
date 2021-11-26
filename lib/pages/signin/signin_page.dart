@@ -59,6 +59,13 @@ class _SignInPageState extends State<SignInPage> {
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (email) {
+                            if (email == null || email.isEmpty) {
+                              return ("Please, enter your password");
+                            } else if (!RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(_passwordController.text)) {
+                              return "Please, enter a valid password";
+                            }
                             return null;
                           },
                         ),
@@ -70,6 +77,11 @@ class _SignInPageState extends State<SignInPage> {
                           controller: _passwordController,
                           keyboardType: TextInputType.text,
                           validator: (password) {
+                            if (password == null || password.isEmpty) {
+                              return ("Please, enter your password");
+                            } else if (password.length < 6) {
+                              return "Please, enter a password longer then 6 characters";
+                            }
                             return null;
                           },
                         ),

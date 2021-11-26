@@ -34,16 +34,7 @@ class InputWidget extends StatelessWidget {
               controller: controller,
               keyboardType: keyboardType,
               obscureText: true,
-              validator: (validator) {
-                if (validator == null || validator.isEmpty) {
-                  return ("Please, enter your ${label.toLowerCase()}");
-                } else if (!RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    .hasMatch(controller.text)) {
-                  return "Please, enter a valid ${label.toLowerCase()}";
-                }
-                return null;
-              },
+              validator: validator,
               style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
               decoration: InputDecoration(
                   border: InputBorder.none,
