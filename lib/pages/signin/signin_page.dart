@@ -1,12 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
+import 'package:meetz/pages/home/home_page.dart';
+import 'package:meetz/pages/signin/widgtes/input/input_widget.dart';
+import 'package:meetz/pages/signin/widgtes/signin_button/signin_button_widget.dart';
 //import 'package:meetz/pages/signin/widgtes/remember_me/remember_me_widget.dart';
 import 'package:meetz/pages/signin/widgtes/signup_button/signup_button_widget.dart';
-import 'package:meetz/shared/widgets/button_widget.dart';
-import 'package:meetz/shared/widgets/input_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
+
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final _formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +34,8 @@ class SignInPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: AppGradients.linear,
                 )),
-            Container(
-                height: double.infinity,
+            Form(
+                key: _formkey,
                 child: Center(
                   child: SingleChildScrollView(
                     physics: AlwaysScrollableScrollPhysics(),
@@ -29,7 +43,7 @@ class SignInPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "Meetz",
+                          "Login",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'OpenSans',
@@ -37,21 +51,53 @@ class SignInPage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 30.0),
+
                         InputWidget(
                           label: "Email",
                           placeHolder: "Enter your Email",
                           icon: Icons.email,
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (email) {
+                            return null;
+                          },
                         ),
                         SizedBox(height: 30.0),
                         InputWidget(
                           label: "Password",
                           placeHolder: "Enter your password",
                           icon: Icons.lock,
+                          controller: _passwordController,
+                          keyboardType: TextInputType.text,
+                          validator: (password) {
+                            return null;
+                          },
                         ),
                         SizedBox(height: 20),
                         //RememberMeWidget(),
-                        ButtonWidget(text: 'LOGIN'),
-                        SignUpButton()
+                        SignInButtonWidget(
+                            text: 'LOGIN',
+                            onPressed: () async {
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
+                              if (_formkey.currentState!.validate()) {
+                                var isRight = await signin();
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                }
+                                if (isRight) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage()));
+                                } else {
+                                  _passwordController.clear();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              }
+                            }),
+                        SignUpButtonWidget()
                       ],
                     ),
                   ),
@@ -60,5 +106,26 @@ class SignInPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  final snackBar = SnackBar(
+      content: Text("E-mail or password invalid!", textAlign: TextAlign.center),
+      backgroundColor: Colors.redAccent);
+
+  Future<bool> signin() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var url = Uri.parse("url");
+    var response = await http.post(url, body: {
+      'email': _emailController.text,
+      'password': _passwordController.text
+    });
+
+    if (response.statusCode == 200) {
+      await sharedPreferences.setString(
+          'token', "${jsonDecode(response.body)['token']}");
+      return true;
+    } else {
+      return false;
+    }
   }
 }
