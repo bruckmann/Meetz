@@ -80,7 +80,7 @@ class _SignInPageState extends State<SignInPage> {
                             if (password == null || password.isEmpty) {
                               return ("Please, enter your password");
                             } else if (password.length < 6) {
-                              return "Please, enter a password longer then 6 characters";
+                              return "Please, enter a password longer than 6 characters";
                             }
                             return null;
                           },
