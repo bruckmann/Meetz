@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meetz/core/core.dart';
-import 'package:meetz/pages/signin/signin_page.dart';
+import 'package:meetz/pages/welcome/welcome_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SplashPage extends StatelessWidget {
@@ -13,8 +13,13 @@ class SplashPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(gradient: AppGradients.linear),
       child: AnimatedSplashScreen(
-        splash: Image.asset('assets/images/rui.jpeg'),
-        nextScreen: (SignInPage()),
+        splash: SvgPicture.asset(
+          'assets/images/white_logo.svg',
+          fit: BoxFit.cover,
+          width: 250,
+          height: 250,
+        ),
+        nextScreen: (WelcomePage()),
         splashTransition: SplashTransition.slideTransition,
         pageTransitionType: PageTransitionType.bottomToTop,
         backgroundColor: Colors.transparent,
