@@ -126,11 +126,18 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<bool> signin() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("url");
-    var response = await http.post(url, body: {
+    var url = Uri.parse("http://localhost:3000/login");
+    Map data = {
       'email': _emailController.text,
-      'password': _passwordController.text
-    });
+      'password': _passwordController.text,
+    };
+    String body = json.encode(data);
+
+    http.Response? response = await http.post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: body);
 
     if (response.statusCode == 200) {
       await sharedPreferences.setString(
