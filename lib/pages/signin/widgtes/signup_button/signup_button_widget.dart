@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/pages/signup/signup_page.dart';
 
+
 class SignUpButtonWidget extends StatelessWidget {
   const SignUpButtonWidget({Key? key}) : super(key: key);
 
@@ -9,7 +10,7 @@ class SignUpButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+            context, MaterialPageRoute(builder: (context) => SingUpPage()));
       },
       child: RichText(
         text: TextSpan(
