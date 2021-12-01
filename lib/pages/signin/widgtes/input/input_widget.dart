@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
 
 class InputWidget extends StatelessWidget {
+  final bool obscureText;
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String? Function(String?) validator;
@@ -9,7 +10,7 @@ class InputWidget extends StatelessWidget {
   final String placeHolder;
   final IconData icon;
 
-  const InputWidget({
+  InputWidget({
     Key? key,
     required this.label,
     required this.placeHolder,
@@ -17,6 +18,7 @@ class InputWidget extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.validator,
+    required this.obscureText,
   }) : super(key: key);
 
   @override
@@ -31,18 +33,21 @@ class InputWidget extends StatelessWidget {
             decoration: inputBoxDecorationStyle,
             height: 60.0,
             child: (TextFormField(
+              textAlignVertical: TextAlignVertical.center,
               controller: controller,
               keyboardType: keyboardType,
-              obscureText: true,
+              obscureText: obscureText,
               validator: validator,
               style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14.0),
-                  prefixIcon: Icon(icon, color: Colors.white),
-                  hintText: placeHolder,
-                  hintStyle: inputHintTextStyle),
-            )))
+                errorStyle: TextStyle(color: Colors.white),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(left: 10),
+                prefixIcon: Icon(icon, color: Colors.white),
+                hintText: placeHolder,
+                hintStyle: inputHintTextStyle,
+              ),
+            ))),
       ],
     );
   }

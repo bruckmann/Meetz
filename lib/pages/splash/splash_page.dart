@@ -4,12 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/welcome/welcome_page.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    signOut();
     return Container(
       decoration: BoxDecoration(gradient: AppGradients.linear),
       child: AnimatedSplashScreen(
@@ -25,5 +27,11 @@ class SplashPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
     );
+  }
+
+  Future<bool> signOut() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+    return true;
   }
 }

@@ -15,7 +15,7 @@ class SignInButtonWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () => onPressed(),
         style: ButtonStyle(
             elevation: MaterialStateProperty.all<double>(5.0),
             shape: MaterialStateProperty.all<OutlinedBorder>(

@@ -53,6 +53,7 @@ class _SignInPageState extends State<SignInPage> {
                         SizedBox(height: 30.0),
 
                         InputWidget(
+                          obscureText: false,
                           label: "Email",
                           placeHolder: "Enter your Email",
                           icon: Icons.email,
@@ -60,17 +61,14 @@ class _SignInPageState extends State<SignInPage> {
                           keyboardType: TextInputType.emailAddress,
                           validator: (email) {
                             if (email == null || email.isEmpty) {
-                              return ("Please, enter your password");
-                            } else if (!RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(_passwordController.text)) {
-                              return "Please, enter a valid password";
+                              return ("Please, enter your E-mail");
                             }
                             return null;
                           },
                         ),
                         SizedBox(height: 30.0),
                         InputWidget(
+                          obscureText: true,
                           label: "Password",
                           placeHolder: "Enter your password",
                           icon: Icons.lock,
@@ -79,8 +77,6 @@ class _SignInPageState extends State<SignInPage> {
                           validator: (password) {
                             if (password == null || password.isEmpty) {
                               return ("Please, enter your password");
-                            } else if (password.length < 6) {
-                              return "Please, enter a password longer than 6 characters";
                             }
                             return null;
                           },
@@ -126,7 +122,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<bool> signin() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://localhost:3000/login");
+    var url = Uri.parse("http://18.212.61.159/login");
     Map data = {
       'email': _emailController.text,
       'password': _passwordController.text,
