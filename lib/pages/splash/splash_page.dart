@@ -17,9 +17,7 @@ class SplashPage extends StatelessWidget {
       child: AnimatedSplashScreen(
         splash: SvgPicture.asset(
           'assets/images/white_logo.svg',
-          fit: BoxFit.cover,
-          width: 250,
-          height: 250,
+          fit: BoxFit.scaleDown,
         ),
         nextScreen: (WelcomePage()),
         splashTransition: SplashTransition.slideTransition,
