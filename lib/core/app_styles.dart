@@ -23,3 +23,11 @@ final inputBoxDecorationStyle = BoxDecoration(
     ),
   ],
 );
+
+final buttonHomeStyle = ButtonStyle(
+    elevation: MaterialStateProperty.all<double>(5.0),
+    shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.00))),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(horizontal: 30.00, vertical: 20)));
