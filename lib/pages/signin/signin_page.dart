@@ -134,7 +134,6 @@ class _SignInPageState extends State<SignInPage> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
-
     if (response.statusCode == 200) {
       await sharedPreferences.setString(
           'token', "${jsonDecode(response.body)['token']}");
