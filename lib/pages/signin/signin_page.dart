@@ -22,6 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -89,11 +90,13 @@ class _SignInPageState extends State<SignInPage> {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
                               if (_formkey.currentState!.validate()) {
-                                var isRight = await signin();
+                                var response = await signin();
+                                print(response);
+                                
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
-                                if (isRight) {
+                                if (response != null){
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -120,9 +123,10 @@ class _SignInPageState extends State<SignInPage> {
       content: Text("E-mail or password invalid!", textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
-  Future<bool> signin() async {
+  Future<String> signin() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://18.212.61.159/login");
+    var url = Uri.parse("http://localhost:3000/login");
+
     Map data = {
       'email': _emailController.text,
       'password': _passwordController.text,
@@ -134,12 +138,20 @@ class _SignInPageState extends State<SignInPage> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
+
     if (response.statusCode == 200) {
       await sharedPreferences.setString(
-          'token', "${jsonDecode(response.body)['token']}");
-      return true;
-    } else {
-      return false;
+          'token', 'token'); //não ta funcionando / não é necessário
+
+    var formatedResponse = response.body.toString().split(',');
+
+    String idToken = "${formatedResponse[0]}+ ${formatedResponse[3]}";
+
+    return idToken;
+    } else{
+       throw("error");
     }
   }
 }
+
+  

@@ -139,7 +139,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
   Future<bool> signup() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://18.212.61.159/user");
+    var url = Uri.parse("http://localhost:3000/user");
 
     Map data = {
     'user': {
