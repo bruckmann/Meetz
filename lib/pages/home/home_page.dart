@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:meetz/core/core.dart';
+import 'package:meetz/core/app_colors.dart';
 import 'package:meetz/pages/home/widgets/admin_button/admin_button_widget.dart';
 import 'package:meetz/pages/home/widgets/colaborator_button/colaborator_button_widget.dart';
 import 'package:meetz/pages/home/widgets/drawer/drawer_widget.dart';
 
-class HomePage extends StatelessWidget {
-  final String role = "admin";
-  final String name = "Jardel Urban";
-  final String email = "jardel@example.com";
-  HomePage({Key? key}) : super(key: key);
+import 'package:http/http.dart' as http;
+
+
+class HomePage extends StatefulWidget {
+  final String? id;
+  
+  const HomePage({ Key? key, this.id }) : super(key: key);
 
   @override
+  _HomePageState createState() => _HomePageState();
+ 
+}
+
+class _HomePageState extends State<HomePage> {
+  
+  final String role = "admin";
+  final String name = "Jardel";
+  final String email = "teste@example.com";
+
+ @override 
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -123,5 +136,24 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<String> getAppoitments(String? response) async {
+
+    var formatedResponse = widget.id.toString().split(',');
+
+    String idToken = "${formatedResponse[0]}}";
+
+    var url = Uri.parse("http://localhost:3000/login${idToken}");
+
+
+    http.Response? resposta = await http.get(url);
+
+    if (resposta.statusCode == 200) {
+ 
+    return idToken;
+    } else{
+       throw("error");
+    } 
   }
 }

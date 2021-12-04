@@ -100,7 +100,7 @@ class _SignInPageState extends State<SignInPage> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => HomePage()));
+                                          builder: (context) => HomePage(id: response)));
                                 } else {
                                   _passwordController.clear();
                                   ScaffoldMessenger.of(context)
@@ -145,7 +145,7 @@ class _SignInPageState extends State<SignInPage> {
 
     var formatedResponse = response.body.toString().split(',');
 
-    String idToken = "${formatedResponse[0]}+ ${formatedResponse[3]}";
+    String idToken = "${formatedResponse[0]},${formatedResponse[3]}";
 
     return idToken;
     } else{
