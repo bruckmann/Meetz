@@ -103,11 +103,11 @@ class _SingUpPageState extends State<SingUpPage> {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
                               if (_formkey.currentState!.validate()) {
-                                var response = await signup();
+                                var isRight = await signup();
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
-                                if (response) {
+                                if (isRight) {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -145,7 +145,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
   Future<bool> signup() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://54.165.93.62/user");
+    var url = Uri.parse("http://34.227.106.59/user");
 
     Map data = {
       'user': {
@@ -162,13 +162,13 @@ class _SingUpPageState extends State<SingUpPage> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
-    print(response.body);
+
     Map<String, dynamic> map = jsonDecode(response.body);
 
     String token = "230120938091";
     String id = map['id'].toString();
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       await sharedPreferences.setStringList('config', [token, id]);
       return true;
     } else {

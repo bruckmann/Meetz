@@ -91,12 +91,12 @@ class _SignInPageState extends State<SignInPage> {
                                   FocusScope.of(context);
 
                               if (_formkey.currentState!.validate()) {
-                                var response = await signin();
+                                var isRight = await signin();
 
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
-                                if (response) {
+                                if (isRight) {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -134,7 +134,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<bool> signin() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://54.165.93.62/login");
+    var url = Uri.parse("http://34.227.106.59/login");
 
     Map data = {
       'email': _emailController.text,

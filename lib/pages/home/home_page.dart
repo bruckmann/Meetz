@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:meetz/core/app_colors.dart';
+import 'package:meetz/pages/home/models/user_model.dart';
 import 'package:meetz/pages/home/widgets/admin_button/admin_button_widget.dart';
 import 'package:meetz/pages/home/widgets/colaborator_button/colaborator_button_widget.dart';
 import 'package:meetz/pages/home/widgets/drawer/drawer_widget.dart';
@@ -14,14 +17,185 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String role = "admin";
-  final String name = "Jardel";
-  final String email = "teste@example.com";
+  late Future<UserModel?> futureUser;
+
+  @override
+  void initState() {
+    super.initState();
+    futureUser = fetchUser();
+  }
 
   @override
   Widget build(BuildContext context) {
-    getAppoitments();
     return SafeArea(
+      child: FutureBuilder<UserModel?>(
+          future: futureUser,
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data != null) {
+              return Scaffold(
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: AppColors.green600,
+                ),
+                drawer: DrawerWidget(
+                  name: snapshot.data!.name,
+                  email: snapshot.data!.email,
+                  role: snapshot.data!.role,
+                ),
+                backgroundColor: Colors.white,
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Stack(children: [
+                      Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.green600,
+                          ),
+                          child: SizedBox(
+                            height: 160,
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, bottom: 25),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Bem vindo, ${snapshot.data!.name}!",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        "Boa tarde!",
+                                        style: TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 115),
+                        child: snapshot.data!.role != "ADMIN"
+                            ? ColaboratorButtonWidget()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 35),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AdminButtonWidget(
+                                      title: "Gerenciar usuarios",
+                                      icon: Icons.group_add,
+                                    ),
+                                    AdminButtonWidget(
+                                      title: "Gerenciar salas",
+                                      icon: Icons.room_preferences,
+                                    ),
+                                    AdminButtonWidget(
+                                      title: "Consultar salas",
+                                      icon: Icons.meeting_room,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      ),
+                    ]),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Agendamentos recentes",
+                                style: TextStyle(
+                                    color: AppColors.green800,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                                color: AppColors.green800,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )),
+                    SizedBox(height: 10),
+                  ],
+                ),
+              );
+            } else if (snapshot.hasError) {}
+
+            return Center(
+                child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(),
+            ));
+          }),
+    );
+  }
+
+  Future<UserModel?> fetchUser() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    if (sharedPreferences.getStringList('config') != null) {
+      List<String> map = sharedPreferences.getStringList('config') ?? [];
+      String token = map[0];
+      String id = map[1];
+      var url = Uri.parse("http://34.227.106.59/user/${id}");
+      http.Response? response = await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      });
+
+      if (response.statusCode == 200) {
+        return UserModel.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to load user');
+      }
+    }
+  }
+}
+
+/**
+ * ]
+ * 
+ * 
+FutureBuilder<UserModel?>(
+            future: futureUser,
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data != null) {
+                return SafeArea(child: Text("${snapshot.data?.name}"));
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+
+              return const CircularProgressIndicator();
+            }),
+
+return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -132,20 +306,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
 
-  Future<void> getAppoitments() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    if (sharedPreferences.getStringList('config') != null) {
-      List<String> map = sharedPreferences.getStringList('config') ?? [];
-      String id = map[1];
-      String token = map[0];
-      var url = Uri.parse("http://3.87.255.237/users/${id}");
-      http.Response response = await http.get(url, headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      });
-      print(response.body);
-    }
-  }
-}
+ */
