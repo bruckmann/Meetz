@@ -1,18 +1,17 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:meetz/core/app_gradients.dart';
 import 'package:meetz/pages/home/home_page.dart';
-import 'package:meetz/pages/signup/widgets/input/input_widget.dart';
+import 'package:meetz/pages/signin/signin_page.dart';
+import 'package:meetz/shared/widgets/button_widget.dart';
+import 'package:meetz/shared/widgets/input_widget.dart';
+import 'package:meetz/shared/widgets/switch_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import 'widgets/button/button_widget.dart';
-
 class SingUpPage extends StatefulWidget {
-  const SingUpPage({ Key? key }) : super(key: key);
+  const SingUpPage({Key? key}) : super(key: key);
 
   @override
   _SingUpPageState createState() => _SingUpPageState();
@@ -23,7 +22,6 @@ class _SingUpPageState extends State<SingUpPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class _SingUpPageState extends State<SingUpPage> {
                   gradient: AppGradients.linear,
                 )),
             Form(
-              key: _formkey,
+                key: _formkey,
                 child: Center(
                   child: SingleChildScrollView(
                     physics: AlwaysScrollableScrollPhysics(),
@@ -46,7 +44,7 @@ class _SingUpPageState extends State<SingUpPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "Sign Up",
+                          "Cadastro",
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'OpenSans',
@@ -55,54 +53,52 @@ class _SingUpPageState extends State<SingUpPage> {
                         ),
                         SizedBox(height: 30.0),
                         InputWidget(
-                          obscureText: false,
-                          label: "Name",
-                          placeHolder: "Enter your full name",
-                          icon: Icons.person,
-                          controller: _nameController,
-                          keyboardType: TextInputType.text,
-                          validator: (name){
-                            if (name == null || name.isEmpty){
-                              return ("Please, entrer your name");
-                            }
-                            return null;
-                          }
-
-                        ),
+                            obscureText: false,
+                            label: "Nome",
+                            placeHolder: "Insira seu nome completo",
+                            icon: Icons.person,
+                            controller: _nameController,
+                            keyboardType: TextInputType.text,
+                            validator: (name) {
+                              if (name == null || name.isEmpty) {
+                                return ("Por favor, insira seu nome");
+                              }
+                              return null;
+                            }),
                         SizedBox(height: 30.0),
-                       InputWidget(
+                        InputWidget(
                           obscureText: false,
-                          label: "Email",
-                          placeHolder: "Enter your Email",
+                          label: "E-mail",
+                          placeHolder: "Insira seu e-mail",
                           icon: Icons.email,
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           validator: (email) {
                             if (email == null || email.isEmpty) {
-                              return ("Please, enter your E-mail");
+                              return ("Por favor, insira seu e-mail");
                             }
                             return null;
                           },
                         ),
                         SizedBox(height: 30.0),
-                         InputWidget(
+                        InputWidget(
                           obscureText: true,
-                          label: "Password",
-                          placeHolder: "Enter your password",
+                          label: "Senha",
+                          placeHolder: "Insira sua senha",
                           icon: Icons.lock,
                           controller: _passwordController,
                           keyboardType: TextInputType.text,
                           validator: (password) {
                             if (password == null || password.isEmpty) {
-                              return ("Please, enter your password");
+                              return ("Por favor, insira sua senha");
                             }
                             return null;
                           },
                         ),
                         SizedBox(height: 30),
                         //RememberMeWidget(),
-                        RegisterButtonWidget(
-                            text: 'REGISTER',
+                        ButtonWidget(
+                            text: 'CADASTRAR',
                             onPressed: () async {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
@@ -122,7 +118,17 @@ class _SingUpPageState extends State<SingUpPage> {
                                       .showSnackBar(snackBar);
                                 }
                               }
-                            })
+                            }),
+                        SwitchButtonWidget(
+                          text: "Já possui uma conta? ",
+                          textButton: "Faça login",
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignInPage()));
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -139,16 +145,16 @@ class _SingUpPageState extends State<SingUpPage> {
 
   Future<bool> signup() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://18.212.61.159/user");
+    var url = Uri.parse("http://34.227.106.59/user");
 
     Map data = {
-    'user': {
-      'name': _nameController.text,
-      'email': _emailController.text,
-      'password': _passwordController.text,
-      'userRole': 'testUser'
-    }
-  };
+      'user': {
+        'name': _nameController.text,
+        'email': _emailController.text,
+        'password': _passwordController.text,
+        'userRole': 'testUser'
+      }
+    };
     String body = json.encode(data);
 
     http.Response? response = await http.post(url,
@@ -156,7 +162,14 @@ class _SingUpPageState extends State<SingUpPage> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
+
+    Map<String, dynamic> map = jsonDecode(response.body);
+
+    String token = "230120938091";
+    String id = map['id'].toString();
+
     if (response.statusCode == 201) {
+      await sharedPreferences.setStringList('config', [token, id]);
       return true;
     } else {
       return false;
