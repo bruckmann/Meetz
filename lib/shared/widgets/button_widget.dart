@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterButtonWidget extends StatelessWidget {
+class ButtonWidget extends StatelessWidget {
   final Function() onPressed;
   final String text;
-  const RegisterButtonWidget({Key? key, required this.text, required this.onPressed}) : super(key: key);
+  const ButtonWidget({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,7 @@ class RegisterButtonWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () => onPressed(),
         style: ButtonStyle(
             elevation: MaterialStateProperty.all<double>(5.0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
