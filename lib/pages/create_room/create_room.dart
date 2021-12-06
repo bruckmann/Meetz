@@ -8,6 +8,7 @@ import 'package:meetz/pages/home/home_page.dart';
 import 'package:meetz/pages/create_room/widgets/input/input_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'widgets/button/button_widget.dart';
 
@@ -28,8 +29,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
   final _descriptionController = TextEditingController();
   final _metersRoomController = TextEditingController();
 
-  bool _hasAir = false;
-  bool _hasPainting = false;
+  bool _hasSplit = false;
+  bool _hasBoard= false;
   bool _hasDatashow = false;
 
   @override
@@ -111,7 +112,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           obscureText: false,
                           label: "Numero da sala",
                           placeHolder: "Insira o numero da sala",
-                          icon: Icons.meeting_room_rounded,
+                          icon: Icons.format_list_numbered_rtl_rounded,
                           controller: _roomNumberController,
                           keyboardType: TextInputType.number,
                           validator: (password) {
@@ -126,7 +127,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           obscureText: false,
                           label: "Numero do andar",
                           placeHolder: "Insira o numero do andar",
-                          icon: Icons.house,
+                          icon: Icons.format_list_numbered_rtl_rounded,
                           controller: _floorNumberController,
                           keyboardType: TextInputType.number,
                           validator: (password) {
@@ -172,23 +173,23 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           SwitchListTile(
                             title: const Text('Possui ar-condicionado'),
                             
-                            value: _hasAir,
+                            value: _hasSplit,
                             onChanged: (bool value) {
                              setState(() {
-                            _hasAir = value;
+                            _hasSplit = value;
                             });
                             },
-                            secondary: const Icon(Icons.check_box)
+                            secondary: const Icon(Icons.checklist_rtl_rounded)
                           ), 
                           SwitchListTile(
                             title: const Text('Possui quadro'),
-                            value: _hasPainting,
+                            value: _hasBoard,
                             onChanged: (bool value) {
                              setState(() {
-                            _hasPainting = value;
+                            _hasBoard = value;
                             });
                             },
-                            secondary: const Icon(Icons.check_box)
+                            secondary: const Icon(Icons.checklist_rtl_rounded)
                           ),
                           SwitchListTile(
                             title: const Text('Possui Datashow'),
@@ -198,7 +199,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                             _hasDatashow = value;
                             });
                             },
-                            secondary: const Icon(Icons.check_box)
+                            secondary: const Icon(Icons.checklist_rtl_rounded)
                           ),
                         SizedBox(height: 30),
                         //RememberMeWidget(),
@@ -208,12 +209,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
                               if (_formkey.currentState!.validate()) {
-                               var response = await signup();
+                               var response = await create_room();
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
-                                String teste = "ss";
-                                if (teste != null) {
+                                print(response);
+                                if (response == true) {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -238,36 +239,46 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
       content: Text("Algum campo invalido", textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
-  Future<void> signup() async {
+  Future<bool?> create_room() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://localhost:3000/user");
 
-   /* Map data = {
-    'user': {
-      'name': _nameController.text,
-      'email': _emailController.text,
-      'password': _passwordController.text,
-      'userRole': 'testUser'
+    if (sharedPreferences.getStringList('config') != null) {
+    List<String> map = sharedPreferences.getStringList('config') ?? [];
+    String token = map[0];
+    var url = Uri.parse("${dotenv.env["URL"]}/meeting_room");
+
+    Map data = {
+    'room_specification' : {
+        'name': _roomNameController.text,
+        'description': _descriptionController.text,
+        'max_person': _maxPeopleController.text,
+        'has_data_show': _hasDatashow.toString(),
+        'has_board': _hasBoard.toString(),
+        'has_split': _hasSplit.toString(),
+        'size': _metersRoomController.text 
+    },
+    'room_localization': {
+        'number': _roomNumberController.text,
+        'floor': _floorNumberController.text
+    },
+    'images': {
+      'url': _imageController.text
     }
+      
   }; 
     String body = json.encode(data);
 
     http.Response? response = await http.post(url,
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: body);
-    if (response.statusCode == 201) {
-       await sharedPreferences.setString(
-          'token', 'token'); 
-      
-    var formatedResponse = response.body.toString().split(',');
-
-    String Token = "${formatedResponse[0]}}";
-
-      return Token;
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+        body: body});
+        
+    if (response.statusCode == 201) {      
+      return true;
     } else {
-      throw("error");
-    } */
+      return false;
+      } 
+    }
   }
 }
