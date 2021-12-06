@@ -111,11 +111,11 @@ class _SingUpPageState extends State<SingUpPage> {
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
-                                if (response != null) {
+                                if (response) {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => HomePage(id: response)));
+                                          builder: (context) => HomePage()));
                                 } else {
                                   _passwordController.clear();
                                   ScaffoldMessenger.of(context)
@@ -137,7 +137,7 @@ class _SingUpPageState extends State<SingUpPage> {
       content: Text("Algum campo invalido", textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
-  Future<String> signup() async {
+  Future<bool> signup() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var url = Uri.parse("http://localhost:3000/user");
 
@@ -156,17 +156,17 @@ class _SingUpPageState extends State<SingUpPage> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: body);
+
+     var formatedResponse = response.body.toString().split(',');
+
+     String Token = "${formatedResponse[0]}}";
+
     if (response.statusCode == 201) {
        await sharedPreferences.setString(
-          'token', 'token'); 
-      
-    var formatedResponse = response.body.toString().split(',');
-
-    String Token = "${formatedResponse[0]}}";
-
-      return Token;
+          'token', Token); 
+      return true;
     } else {
-      throw("error");
+      return false;
     }
   }
 }

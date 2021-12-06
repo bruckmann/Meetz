@@ -5,12 +5,12 @@ import 'package:meetz/pages/home/widgets/colaborator_button/colaborator_button_w
 import 'package:meetz/pages/home/widgets/drawer/drawer_widget.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HomePage extends StatefulWidget {
-  final String? id;
   
-  const HomePage({ Key? key, this.id }) : super(key: key);
+  const HomePage({ Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -23,8 +23,10 @@ class _HomePageState extends State<HomePage> {
   final String name = "Jardel";
   final String email = "teste@example.com";
 
+
  @override 
   Widget build(BuildContext context) {
+    getAppoitments();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -138,22 +140,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<String> getAppoitments(String? response) async {
+  Future<void> getAppoitments() async {
 
-    var formatedResponse = widget.id.toString().split(',');
+   
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString('token') != null) {
+       var formatedResponse = sharedPreferences.getString('token')!.split(',');
 
-    String idToken = "${formatedResponse[0]}}";
+      String idToken = "${formatedResponse[1]}}";
 
-    var url = Uri.parse("http://localhost:3000/login${idToken}");
+      var teste = idToken.split(':');
 
-
-    http.Response? resposta = await http.get(url);
-
-    if (resposta.statusCode == 200) {
- 
-    return idToken;
-    } else{
-       throw("error");
+      print(teste[1]);
     } 
+
+    //var url = Uri.parse("http://localhost:3000/user/${idToken}");
+
+
+   // http.Response? resposta = await http.get(url);
+
   }
 }
