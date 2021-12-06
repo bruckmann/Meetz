@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/pages/signup/signup_page.dart';
 
+class SwitchButtonWidget extends StatelessWidget {
+  final String text;
+  final String textButton;
+  final Function() onTap;
 
-class SignUpButtonWidget extends StatelessWidget {
-  const SignUpButtonWidget({Key? key}) : super(key: key);
+  const SwitchButtonWidget({
+    Key? key,
+    required this.text,
+    required this.textButton,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SingUpPage()));
-      },
+      onTap: onTap,
       child: RichText(
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'Don\'t have an Account? ',
+              text: text,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
@@ -24,7 +29,7 @@ class SignUpButtonWidget extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: 'Sign Up',
+              text: textButton,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,

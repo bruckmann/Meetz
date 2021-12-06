@@ -24,7 +24,7 @@ class DrawerWidget extends StatelessWidget {
           accountEmail: Text(email),
           decoration: BoxDecoration(color: AppColors.green600),
         ),
-        role != "admin"
+        role != "ADMIN"
             ? ListTile(
                 title: Text(
                   'Consultar salas',
