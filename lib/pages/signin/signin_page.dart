@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/home/home_page.dart';
+import 'package:meetz/pages/info_rooms/info_rooms_page.dart';
 import 'package:meetz/pages/signup/signup_page.dart';
 import 'package:meetz/shared/widgets/input_widget.dart';
 import 'package:meetz/shared/widgets/button_widget.dart';
@@ -100,7 +101,7 @@ class _SignInPageState extends State<SignInPage> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => HomePage()));
+                                          builder: (context) => InfoRoomsPage()));
                                 } else {
                                   _passwordController.clear();
                                   ScaffoldMessenger.of(context)
