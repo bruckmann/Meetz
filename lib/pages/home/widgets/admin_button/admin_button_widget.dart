@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
 
 class AdminButtonWidget extends StatelessWidget {
+  final void Function()? onPressed;
   final String title;
   final IconData icon;
   const AdminButtonWidget({
     Key? key,
     required this.title,
     required this.icon,
+    this.onPressed,
   }) : super(key: key);
 
   @override

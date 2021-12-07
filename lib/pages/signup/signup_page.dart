@@ -9,6 +9,7 @@ import 'package:meetz/shared/widgets/input_widget.dart';
 import 'package:meetz/shared/widgets/switch_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({Key? key}) : super(key: key);
@@ -145,7 +146,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
   Future<bool> signup() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://34.227.106.59/user");
+    var url = Uri.parse("${dotenv.env["URL"]}/user");
 
     Map data = {
       'user': {
