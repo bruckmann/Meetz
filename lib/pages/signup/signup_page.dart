@@ -166,7 +166,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
     Map<String, dynamic> map = jsonDecode(response.body);
 
-    String token = "230120938091";
+    String token = map['token'];
     String id = map['id'].toString();
 
     if (response.statusCode == 201) {

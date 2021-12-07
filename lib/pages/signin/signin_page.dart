@@ -7,7 +7,6 @@ import 'package:meetz/pages/signup/signup_page.dart';
 import 'package:meetz/shared/widgets/input_widget.dart';
 import 'package:meetz/shared/widgets/button_widget.dart';
 import 'package:meetz/shared/widgets/switch_button_widget.dart';
-//import 'package:meetz/pages/signin/widgtes/remember_me/remember_me_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';

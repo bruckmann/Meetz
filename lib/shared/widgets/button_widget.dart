@@ -23,7 +23,7 @@ class ButtonWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30.00))),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                EdgeInsets.all(15.00))),
+                EdgeInsets.symmetric(horizontal: 15.00, vertical: 25))),
         child: Text(
           text,
           style: TextStyle(
