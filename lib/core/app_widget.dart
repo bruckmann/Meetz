@@ -5,6 +5,9 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Meetz", home: SplashPage()); //pagina que você vai trabalhar
+      debugShowCheckedModeBanner: false,
+      title: "Meetz",
+      home: SplashPage(),
+    ); //pagina que você vai trabalhar
   }
 }
