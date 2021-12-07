@@ -69,8 +69,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           icon: Icons.text_format,
                           controller: _roomNameController,
                           keyboardType: TextInputType.number,
-                          validator: (password) {
-                            if (password == null || password.isEmpty) {
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return ("Por favor, insira o nome da sala");
                             }
                             return null;
@@ -84,8 +84,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           icon: Icons.image,
                           controller: _imageController,
                           keyboardType: TextInputType.text,
-                          validator: (name){
-                            if (name == null || name.isEmpty){
+                          validator: (value){
+                            if (value == null || value.isEmpty){
                               return ("Por favor, insira a imagem");
                             }
                             return null;
@@ -98,10 +98,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           label: "Maximo de pessoas",
                           placeHolder: "Insira o maximo de pessoas que podem caber na sala",
                           icon: Icons.people,
-                          controller: _maxPeopleController,
+                          controller: _maxPeopleController,           
                           keyboardType: TextInputType.number,
-                          validator: (email) {
-                            if (email == null || email.isEmpty) {
+                          inputFormatters:[
+                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return ("Por favor, insira o maximo de pessoas");
                             }
                             return null;
@@ -115,8 +117,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           icon: Icons.format_list_numbered_rtl_rounded,
                           controller: _roomNumberController,
                           keyboardType: TextInputType.number,
-                          validator: (password) {
-                            if (password == null || password.isEmpty) {
+                          validator: (value) {
+                            if (value == null || value.isEmpty ) {
                               return ("Por favor, insira o numero da sala");
                             }
                             return null;
@@ -130,8 +132,10 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           icon: Icons.format_list_numbered_rtl_rounded,
                           controller: _floorNumberController,
                           keyboardType: TextInputType.number,
-                          validator: (password) {
-                            if (password == null || password.isEmpty) {
+                          inputFormatters:[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return ("Por favor, insira o numero do andar");
                             }
                             return null;
@@ -147,8 +151,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           controller: _descriptionController,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
-                          validator: (password) {
-                            if (password == null || password.isEmpty) {
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return ("Por favor, insira a descrição");
                             }
                             return null;
@@ -162,8 +166,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           icon: Icons.meeting_room_sharp,
                           controller: _metersRoomController,
                           keyboardType: TextInputType.number,
-                          validator: (password) {
-                            if (password == null || password.isEmpty) {
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return ("Por favor, insira o numero de metros da sala");
                             }
                             return null;
@@ -213,7 +217,6 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
-                                print(response);
                                 if (response == true) {
                                   Navigator.pushReplacement(
                                       context,
@@ -245,7 +248,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
     if (sharedPreferences.getStringList('config') != null) {
     List<String> map = sharedPreferences.getStringList('config') ?? [];
     String token = map[0];
-    var url = Uri.parse("${dotenv.env["URL"]}/meeting_room");
+    var url = Uri.parse("http://localhost:3000/meeting_room");
 
     Map data = {
     'room_specification' : {
@@ -255,26 +258,26 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
         'has_data_show': _hasDatashow.toString(),
         'has_board': _hasBoard.toString(),
         'has_split': _hasSplit.toString(),
-        'size': _metersRoomController.text 
+        'size': "${_metersRoomController.text}m quadrados"
     },
     'room_localization': {
         'number': _roomNumberController.text,
         'floor': _floorNumberController.text
     },
-    'images': {
+    'image': {
       'url': _imageController.text
     }
       
   }; 
     String body = json.encode(data);
-
+    
     http.Response? response = await http.post(url,
         headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-        body: body});
-        
-    if (response.statusCode == 201) {      
+        'Authorization': 'Bearer $token'},
+        body: body);
+        print(response.statusCode);
+    if (response.statusCode == 200) {      
       return true;
     } else {
       return false;
