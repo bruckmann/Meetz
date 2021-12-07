@@ -11,6 +11,8 @@ class InputWidget extends StatelessWidget {
   final String placeHolder;
   final IconData icon;
   final int? maxLines;
+  final List<TextInputFormatter>? inputFormatters;
+
   
   const InputWidget({
     Key? key,
@@ -21,6 +23,7 @@ class InputWidget extends StatelessWidget {
     required this.controller, 
     required this.keyboardType, 
     required this.validator,
+    this.inputFormatters,
     this.maxLines
   }) : super(key: key);
 
@@ -41,6 +44,7 @@ class InputWidget extends StatelessWidget {
               keyboardType: keyboardType,
               obscureText: obscureText,
               validator: validator,
+              inputFormatters: [],        
               maxLines: maxLines,
               style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
               decoration: InputDecoration(
