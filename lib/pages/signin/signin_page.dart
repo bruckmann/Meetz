@@ -10,6 +10,7 @@ import 'package:meetz/shared/widgets/switch_button_widget.dart';
 //import 'package:meetz/pages/signin/widgtes/remember_me/remember_me_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -134,7 +135,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<bool> signin() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Uri.parse("http://34.227.106.59/login");
+    var url = Uri.parse("${dotenv.env["URL"]}/login");
 
     Map data = {
       'email': _emailController.text,
