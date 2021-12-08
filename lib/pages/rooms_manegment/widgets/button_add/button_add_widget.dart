@@ -22,7 +22,7 @@ class ButtonAddWidget extends StatelessWidget {
           ),
         ],
       ),
-      style: buttonRoomManegmentStyle,
+      style: buttonNoStyle,
     );
   }
 }

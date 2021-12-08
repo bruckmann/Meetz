@@ -1,14 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:meetz/core/app_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/home/models/user_model.dart';
 import 'package:meetz/pages/home/widgets/admin_button/admin_button_widget.dart';
+import 'package:meetz/pages/home/widgets/check_appointments/check_appointments_widget.dart';
 import 'package:meetz/pages/home/widgets/colaborator_button/colaborator_button_widget.dart';
 import 'package:meetz/pages/home/widgets/drawer/drawer_widget.dart';
 import 'package:http/http.dart' as http;
-import 'package:meetz/pages/list_rooms/list_rooms_page.dart';
-import 'package:meetz/pages/room_manegment/room_manegment_page.dart';
+import 'package:meetz/pages/home/widgets/recent_appointments/recent_appointments.dart';
+import 'package:meetz/pages/rooms/list_rooms_page.dart';
+import 'package:meetz/pages/rooms_manegment/room_manegment_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -44,6 +47,14 @@ class _HomePageState extends State<HomePage> {
                   name: snapshot.data!.name,
                   email: snapshot.data!.email,
                   role: snapshot.data!.role,
+                ),
+                bottomSheet: Padding(
+                  padding: const EdgeInsets.only(left: 140, bottom: 10),
+                  child: SvgPicture.asset(
+                    'assets/images/logo.svg',
+                    height: 70,
+                    alignment: Alignment.center,
+                  ),
                 ),
                 backgroundColor: Colors.white,
                 body: Column(
@@ -112,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      RoomManegmentPage()));
+                                                      RoomsManegmentPage()));
                                         }),
                                     AdminButtonWidget(
                                         title: "Consultar salas",
@@ -122,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ListRoomsPage()));
+                                                      RoomsPage()));
                                         }),
                                   ],
                                 ),
@@ -136,6 +147,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,19 +156,19 @@ class _HomePageState extends State<HomePage> {
                                 "Agendamentos recentes",
                                 style: TextStyle(
                                     color: AppColors.green800,
-                                    fontSize: 18,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Icon(
-                                Icons.keyboard_arrow_right,
-                                color: AppColors.green800,
-                              ),
+                              CheckAppointmentsWidget()
                             ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: RecentAppointmentsWidget(),
                           ),
                         ],
                       ),
                     )),
-                    SizedBox(height: 10),
                   ],
                 ),
               );

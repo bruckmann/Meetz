@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RoomLoadingWidget extends StatelessWidget {
-  const RoomLoadingWidget({Key? key}) : super(key: key);
+class FutureLoadingWidget extends StatelessWidget {
+  const FutureLoadingWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

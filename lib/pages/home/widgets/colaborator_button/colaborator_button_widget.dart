@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
-import 'package:meetz/pages/list_rooms/list_rooms_page.dart';
+import 'package:meetz/pages/rooms/list_rooms_page.dart';
 
 class ColaboratorButtonWidget extends StatelessWidget {
   const ColaboratorButtonWidget({Key? key}) : super(key: key);
@@ -12,8 +12,8 @@ class ColaboratorButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => ListRoomsPage()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => RoomsPage()));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

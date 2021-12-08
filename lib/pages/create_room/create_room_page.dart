@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/home/home_page.dart';
 import 'package:meetz/pages/create_room/widgets/input/input_widget.dart';
-import 'package:meetz/pages/room_manegment/room_manegment_page.dart';
+import 'package:meetz/pages/rooms_manegment/room_manegment_page.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
 import 'package:meetz/shared/widgets/page_title_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +44,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => RoomManegmentPage(),
+                builder: (context) => RoomsManegmentPage(),
               ),
             );
           },

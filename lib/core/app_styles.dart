@@ -50,11 +50,11 @@ final titleDecorationStyle = TextStyle(
     fontFamily: 'OpenSans',
     fontSize: 25);
 
-final buttonRoomManegmentStyle = ButtonStyle(
+final buttonNoStyle = ButtonStyle(
     elevation: MaterialStateProperty.all<double>(0),
     backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-        EdgeInsets.symmetric(horizontal: 20.00, vertical: 20)));
+        EdgeInsets.symmetric(vertical: 20)));
 
 final buttonCreateRoomStyle = ButtonStyle(
     elevation: MaterialStateProperty.all<double>(5.0),
