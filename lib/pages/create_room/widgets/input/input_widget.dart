@@ -3,59 +3,49 @@ import 'package:flutter/services.dart';
 import 'package:meetz/core/core.dart';
 
 class InputWidget extends StatelessWidget {
-  final bool obscureText;
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String? Function(String?) validator;
   final String label;
-  final String placeHolder;
   final IconData icon;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
 
-  
-  const InputWidget({
-    Key? key,
-    required this.label,
-    required this.placeHolder,
-    required this.icon, 
-    required this.obscureText,
-    required this.controller, 
-    required this.keyboardType, 
-    required this.validator,
-    this.inputFormatters,
-    this.maxLines
-  }) : super(key: key);
+  const InputWidget(
+      {Key? key,
+      required this.label,
+      required this.icon,
+      required this.controller,
+      required this.keyboardType,
+      required this.validator,
+      this.inputFormatters,
+      this.maxLines})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(label, style: inputLabelStyle),
-        SizedBox(height: 10),
-        Container(
-            alignment: Alignment.centerLeft,
-            decoration: inputBoxDecorationStyle,
-            height: 60.0,
-            child: (TextFormField(
-              textAlignVertical: TextAlignVertical.center,
-              controller: controller,
-              keyboardType: keyboardType,
-              obscureText: obscureText,
-              validator: validator,
-              inputFormatters: [],        
-              maxLines: maxLines,
-              style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
-              decoration: InputDecoration(
-                  errorStyle: TextStyle(color: Colors.white),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 10.0),
-                  prefixIcon: Icon(icon, color: Colors.white),
-                  hintText: placeHolder,
-                  hintStyle: inputHintTextStyle),
-            )))
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        textAlignVertical: TextAlignVertical.center,
+        controller: controller,
+        keyboardType: keyboardType,
+        validator: validator,
+        inputFormatters: [],
+        maxLines: maxLines,
+        style: TextStyle(color: AppColors.green800, fontFamily: 'OpenSans'),
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon, color: AppColors.green800),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColors.green800)),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColors.green900)),
+          hintText: label,
+          hintStyle: TextStyle(
+            color: Colors.black26,
+          ),
+        ),
+      ),
     );
   }
 }

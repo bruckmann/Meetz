@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/home/home_page.dart';
-import 'package:meetz/pages/info_rooms/info_rooms_page.dart';
 import 'package:meetz/pages/signup/signup_page.dart';
 import 'package:meetz/shared/widgets/input_widget.dart';
 import 'package:meetz/shared/widgets/button_widget.dart';
+import 'package:meetz/shared/widgets/snack_bar_widget.dart';
 import 'package:meetz/shared/widgets/switch_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -92,7 +92,7 @@ class _SignInPageState extends State<SignInPage> {
                                   FocusScope.of(context);
 
                               if (_formkey.currentState!.validate()) {
-                                var isRight = await signin();
+                                var isRight = await signIn();
 
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
@@ -101,11 +101,11 @@ class _SignInPageState extends State<SignInPage> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => InfoRoomsPage()));
+                                          builder: (context) => HomePage()));
                                 } else {
                                   _passwordController.clear();
                                   ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                      .showSnackBar(snackBarError);
                                 }
                               }
                             }),
@@ -129,11 +129,11 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  final snackBar = SnackBar(
-      content: Text("E-mail ou senha invalidos!", textAlign: TextAlign.center),
+  final snackBarError = SnackBar(
+      content: Text("Usuário ou senha inválido", textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
-  Future<bool> signin() async {
+  Future<bool> signIn() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var url = Uri.parse("${dotenv.env["URL"]}/login");
 
@@ -149,11 +149,11 @@ class _SignInPageState extends State<SignInPage> {
         },
         body: body);
 
+    Map<String, dynamic> map = jsonDecode(response.body);
+
     if (response.statusCode == 200) {
-      Map<String, dynamic> map = jsonDecode(response.body);
       String token = map['token'];
       String id = map['id'].toString();
-
       await sharedPreferences.setStringList('config', [token, id]);
       return true;
     } else {

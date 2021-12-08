@@ -8,6 +8,7 @@ import 'package:meetz/pages/home/widgets/colaborator_button/colaborator_button_w
 import 'package:meetz/pages/home/widgets/drawer/drawer_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:meetz/pages/list_rooms/list_rooms_page.dart';
+import 'package:meetz/pages/room_manegment/room_manegment_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -104,9 +105,15 @@ class _HomePageState extends State<HomePage> {
                                       icon: Icons.group_add,
                                     ),
                                     AdminButtonWidget(
-                                      title: "Gerenciar salas",
-                                      icon: Icons.room_preferences,
-                                    ),
+                                        title: "Gerenciar salas",
+                                        icon: Icons.room_preferences,
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      RoomManegmentPage()));
+                                        }),
                                     AdminButtonWidget(
                                         title: "Consultar salas",
                                         icon: Icons.meeting_room,
@@ -171,7 +178,8 @@ class _HomePageState extends State<HomePage> {
     if (sharedPreferences.getStringList('config') != null) {
       List<String> map = sharedPreferences.getStringList('config') ?? [];
       String token = map[0];
-      String id = map[1];
+      String id = map[1].toString();
+
       var url = Uri.parse("${dotenv.env["URL"]}/user/${id}");
       http.Response? response = await http.get(url, headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',

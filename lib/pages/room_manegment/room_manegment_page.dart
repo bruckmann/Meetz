@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:meetz/core/core.dart';
+import 'package:meetz/pages/create_room/create_room_page.dart';
+import 'package:meetz/pages/room_manegment/widgets/button_add_widget.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
 import 'package:meetz/shared/widgets/page_title_widget.dart';
@@ -13,14 +15,14 @@ import 'package:meetz/shared/widgets/room_search_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class ListRoomsPage extends StatefulWidget {
-  const ListRoomsPage({Key? key}) : super(key: key);
+class RoomManegmentPage extends StatefulWidget {
+  const RoomManegmentPage({Key? key}) : super(key: key);
 
   @override
-  _ListRoomsPageState createState() => _ListRoomsPageState();
+  _RoomManegmentPageState createState() => _RoomManegmentPageState();
 }
 
-class _ListRoomsPageState extends State<ListRoomsPage> {
+class _RoomManegmentPageState extends State<RoomManegmentPage> {
   late Future<List<RoomModel>?> futureRoom;
 
   @override
@@ -43,7 +45,25 @@ class _ListRoomsPageState extends State<ListRoomsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PageTitleWidget(title: "Salas disponíveis"),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PageTitleWidget(title: "Gerenciar salas"),
+                      ButtonAddWidget(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CreateRoomPage(),
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
                 Center(
                   child: Column(
                     children: [
