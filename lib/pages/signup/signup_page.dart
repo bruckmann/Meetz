@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:meetz/core/app_colors.dart';
 import 'package:meetz/core/app_gradients.dart';
 import 'package:meetz/pages/home/home_page.dart';
 import 'package:meetz/pages/signin/signin_page.dart';
@@ -104,19 +106,21 @@ class _SingUpPageState extends State<SingUpPage> {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
                               if (_formkey.currentState!.validate()) {
-                                var isRight = await signup();
+                                var isRight = await signUp();
                                 if (!currentFocus.hasPrimaryFocus) {
                                   currentFocus.unfocus();
                                 }
                                 if (isRight) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBarSuccess);
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => HomePage()));
                                 } else {
-                                  _passwordController.clear();
                                   ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                      .showSnackBar(snackBarError);
+                                  _passwordController.clear();
                                 }
                               }
                             }),
@@ -140,11 +144,16 @@ class _SingUpPageState extends State<SingUpPage> {
     );
   }
 
-  final snackBar = SnackBar(
-      content: Text("Algum campo invalido", textAlign: TextAlign.center),
+  final snackBarSuccess = SnackBar(
+      content:
+          Text("Cadastro realizado com sucesso", textAlign: TextAlign.center),
+      backgroundColor: AppColors.green600);
+
+  final snackBarError = SnackBar(
+      content: Text("E-mail não autorizado", textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
-  Future<bool> signup() async {
+  Future<bool> signUp() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var url = Uri.parse("${dotenv.env["URL"]}/user");
 
@@ -166,10 +175,9 @@ class _SingUpPageState extends State<SingUpPage> {
 
     Map<String, dynamic> map = jsonDecode(response.body);
 
-    String token = map['token'];
-    String id = map['id'].toString();
-
     if (response.statusCode == 201) {
+      String token = map['token'];
+      String id = map['id'].toString();
       await sharedPreferences.setStringList('config', [token, id]);
       return true;
     } else {

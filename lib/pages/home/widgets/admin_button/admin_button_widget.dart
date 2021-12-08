@@ -17,7 +17,7 @@ class AdminButtonWidget extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           child: Icon(
             icon,
             color: AppColors.green700,

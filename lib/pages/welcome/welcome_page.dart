@@ -32,7 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   Future<bool> verifyToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString('token') != null) {
+    if (sharedPreferences.getStringList('config') != null) {
       return true;
     } else {
       return false;
