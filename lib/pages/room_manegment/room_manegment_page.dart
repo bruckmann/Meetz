@@ -7,6 +7,7 @@ import 'package:meetz/pages/create_room/create_room_page.dart';
 import 'package:meetz/pages/room_manegment/widgets/button_add_widget.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
+import 'package:meetz/shared/widgets/page_title_widget.dart';
 import 'package:meetz/shared/widgets/room_data_widget.dart';
 import 'package:meetz/shared/widgets/room_empty_widget.dart';
 import 'package:meetz/shared/widgets/room_loading_widget.dart';
@@ -49,11 +50,7 @@ class _RoomManegmentPageState extends State<RoomManegmentPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Gerenciar salas",
-                        style: roomTitleDecorationStyle,
-                        textAlign: TextAlign.left,
-                      ),
+                      PageTitleWidget(title: "Gerenciar salas"),
                       ButtonAddWidget(
                         onPressed: () {
                           Navigator.pushReplacement(

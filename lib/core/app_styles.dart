@@ -32,21 +32,27 @@ final buttonHomeStyle = ButtonStyle(
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
         EdgeInsets.symmetric(horizontal: 30.00, vertical: 20)));
 
-final roomTextDecorationStyle = TextStyle(
-  color: AppColors.green800,
-  fontWeight: FontWeight.bold,
-  fontFamily: 'OpenSans',
-);
-
 final roomTitleDecorationStyle = TextStyle(
     color: AppColors.green800,
     fontWeight: FontWeight.bold,
     fontFamily: 'OpenSans',
-    fontSize: 30);
+    fontSize: 15);
+
+final roomTextDecorationStyle = TextStyle(
+    color: AppColors.green800,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'OpenSans',
+    fontSize: 10);
+
+final titleDecorationStyle = TextStyle(
+    color: AppColors.green800,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'OpenSans',
+    fontSize: 25);
 
 final buttonRoomManegmentStyle = ButtonStyle(
     elevation: MaterialStateProperty.all<double>(0),
-    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
         EdgeInsets.symmetric(horizontal: 20.00, vertical: 20)));
 

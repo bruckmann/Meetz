@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meetz/core/app_colors.dart';
+import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/home/home_page.dart';
 import 'package:meetz/pages/create_room/widgets/input/input_widget.dart';
 import 'package:meetz/pages/room_manegment/room_manegment_page.dart';
@@ -183,25 +183,34 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                       _hasSplit = value;
                                     });
                                   },
-                                  secondary: const Icon(Icons.air)),
+                                  secondary: Icon(
+                                    Icons.air,
+                                    color: AppColors.green800,
+                                  )),
                               SwitchListTile(
-                                  title: const Text('Quadro'),
+                                  title: Text('Quadro'),
                                   value: _hasBoard,
                                   onChanged: (bool value) {
                                     setState(() {
                                       _hasBoard = value;
                                     });
                                   },
-                                  secondary: const Icon(Icons.square_foot)),
+                                  secondary: Icon(
+                                    Icons.square_foot,
+                                    color: AppColors.green800,
+                                  )),
                               SwitchListTile(
-                                  title: const Text('Datashow'),
+                                  title: Text('Datashow'),
                                   value: _hasDatashow,
                                   onChanged: (bool value) {
                                     setState(() {
                                       _hasDatashow = value;
                                     });
                                   },
-                                  secondary: const Icon(Icons.camera_outdoor)),
+                                  secondary: Icon(
+                                    Icons.camera_outdoor,
+                                    color: AppColors.green800,
+                                  )),
 
                               //RememberMeWidget(),
                               RegisterButtonWidget(

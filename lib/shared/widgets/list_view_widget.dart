@@ -49,16 +49,21 @@ class ListViewWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${name}', style: roomTextDecorationStyle),
-                    Text("Sala: ${number} - ${floor}º andar",
-                        style: roomTextDecorationStyle),
-                    IconButton(
-                      icon: Icon(
-                        Icons.keyboard_arrow_right,
-                        size: 30,
-                        color: AppColors.green800,
-                      ),
-                      onPressed: () {},
+                    Text('${name}', style: roomTitleDecorationStyle),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("Sala: ${number} - ${floor}º andar",
+                            style: roomTextDecorationStyle),
+                        IconButton(
+                          icon: Icon(
+                            Icons.keyboard_arrow_right,
+                            size: 30,
+                            color: AppColors.green800,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
                   ],
                 ),

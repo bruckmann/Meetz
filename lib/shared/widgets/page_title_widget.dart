@@ -11,7 +11,7 @@ class PageTitleWidget extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 10),
         child: Text(
           title,
-          style: roomTitleDecorationStyle,
+          style: titleDecorationStyle,
           textAlign: TextAlign.left,
         ));
   }

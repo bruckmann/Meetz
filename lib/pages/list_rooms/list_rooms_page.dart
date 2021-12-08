@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:meetz/core/core.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
+import 'package:meetz/shared/widgets/page_title_widget.dart';
 import 'package:meetz/shared/widgets/room_data_widget.dart';
 import 'package:meetz/shared/widgets/room_empty_widget.dart';
 import 'package:meetz/shared/widgets/room_loading_widget.dart';
@@ -42,14 +43,7 @@ class _ListRoomsPageState extends State<ListRoomsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    "Salas disponíveis",
-                    style: roomTitleDecorationStyle,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
+                PageTitleWidget(title: "Salas disponíveis"),
                 Center(
                   child: Column(
                     children: [
