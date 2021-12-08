@@ -48,6 +48,7 @@ class InputWidget extends StatelessWidget {
               maxLines: maxLines,
               style: TextStyle(color: Colors.white, fontFamily: 'OpenSans'),
               decoration: InputDecoration(
+                  
                   errorStyle: TextStyle(color: Colors.white),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(left: 10.0),
