@@ -1,4 +1,5 @@
 class RoomModel {
+  final int id_room;
   final String name;
   final String description;
   final int max_person;
@@ -11,6 +12,7 @@ class RoomModel {
   final String number;
 
   RoomModel({
+    required this.id_room,
     required this.name,
     required this.description,
     required this.max_person,
@@ -25,6 +27,7 @@ class RoomModel {
 
   factory RoomModel.fromJson(Map<String, dynamic> json) {
     return RoomModel(
+        id_room: json['id'],
         name: json['name'],
         description: json['description'],
         max_person: json['max_person'],

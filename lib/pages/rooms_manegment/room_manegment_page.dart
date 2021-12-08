@@ -2,27 +2,26 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/create_room/create_room_page.dart';
-import 'package:meetz/pages/room_manegment/widgets/button_add_widget.dart';
+import 'package:meetz/pages/rooms_manegment/widgets/button_add/button_add_widget.dart';
+import 'package:meetz/pages/rooms_manegment/widgets/room_manegment_data/room_data_widget.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
 import 'package:meetz/shared/widgets/page_title_widget.dart';
-import 'package:meetz/shared/widgets/room_data_widget.dart';
 import 'package:meetz/shared/widgets/room_empty_widget.dart';
 import 'package:meetz/shared/widgets/room_loading_widget.dart';
 import 'package:meetz/shared/widgets/room_search_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class RoomManegmentPage extends StatefulWidget {
-  const RoomManegmentPage({Key? key}) : super(key: key);
+class RoomsManegmentPage extends StatefulWidget {
+  const RoomsManegmentPage({Key? key}) : super(key: key);
 
   @override
-  _RoomManegmentPageState createState() => _RoomManegmentPageState();
+  _RoomsManegmentPageState createState() => _RoomsManegmentPageState();
 }
 
-class _RoomManegmentPageState extends State<RoomManegmentPage> {
+class _RoomsManegmentPageState extends State<RoomsManegmentPage> {
   late Future<List<RoomModel>?> futureRoom;
 
   @override
@@ -77,13 +76,14 @@ class _RoomManegmentPageState extends State<RoomManegmentPage> {
                                 return RoomEmptyWidget();
                               } else if (snapshot.hasData &&
                                   snapshot.data!.isNotEmpty) {
-                                return RoomDataWidget(list: snapshot.data);
+                                return RoomDataManegmentWidget(
+                                    list: snapshot.data);
                               } else if (snapshot.hasError) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               }
 
-                              return RoomLoadingWidget();
+                              return FutureLoadingWidget();
                             }),
                       ),
                     ],

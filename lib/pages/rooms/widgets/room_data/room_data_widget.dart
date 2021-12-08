@@ -17,10 +17,12 @@ class RoomDataWidget extends StatelessWidget {
       itemCount: list!.length,
       itemBuilder: (BuildContext context, int index) {
         return ListViewWidget(
+          isManegment: false,
           image_url: list![index].image_url,
           name: list![index].name,
           number: list![index].number,
           floor: list![index].floor,
+          id_room: list![index].id_room,
         );
       },
       separatorBuilder: (BuildContext context, int index) =>

@@ -2,25 +2,24 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:meetz/core/core.dart';
+import 'package:meetz/pages/rooms/widgets/room_data/room_data_widget.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
 import 'package:meetz/shared/widgets/page_title_widget.dart';
-import 'package:meetz/shared/widgets/room_data_widget.dart';
 import 'package:meetz/shared/widgets/room_empty_widget.dart';
 import 'package:meetz/shared/widgets/room_loading_widget.dart';
 import 'package:meetz/shared/widgets/room_search_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class ListRoomsPage extends StatefulWidget {
-  const ListRoomsPage({Key? key}) : super(key: key);
+class RoomsPage extends StatefulWidget {
+  const RoomsPage({Key? key}) : super(key: key);
 
   @override
-  _ListRoomsPageState createState() => _ListRoomsPageState();
+  _RoomsPageState createState() => _RoomsPageState();
 }
 
-class _ListRoomsPageState extends State<ListRoomsPage> {
+class _RoomsPageState extends State<RoomsPage> {
   late Future<List<RoomModel>?> futureRoom;
 
   @override
@@ -63,7 +62,7 @@ class _ListRoomsPageState extends State<ListRoomsPage> {
                                     .showSnackBar(snackBar);
                               }
 
-                              return RoomLoadingWidget();
+                              return FutureLoadingWidget();
                             }),
                       ),
                     ],
