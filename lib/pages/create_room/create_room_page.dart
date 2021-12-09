@@ -226,7 +226,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    HomePage()));
+                                                    RoomsManegmentPage()));
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBarError);
