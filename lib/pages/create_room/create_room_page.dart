@@ -78,7 +78,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 keyboardType: TextInputType.number,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return ("Por favor, insira o nome da sala");
+                                    return ("O campo nome da sala não está preenchido");
                                   }
                                   return null;
                                 },
@@ -90,7 +90,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   keyboardType: TextInputType.text,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return ("Por favor, insira uma URL de imagem");
+                                      return ("O campo imagem não está preenchido");
                                     }
                                     return null;
                                   }),
@@ -102,7 +102,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 mask: [numMask],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return ("Por favor, insira o máximo de pessoas");
+                                    return ("O campo número máximo de pessoas não está preenchido");
                                   }
                                   return null;
                                 },
@@ -115,7 +115,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 mask: [numMask],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return ("Por favor, insira o número da sala");
+                                    return ("O campo número da sala não está preenchido");
                                   }
                                   return null;
                                 },
@@ -128,7 +128,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 mask: [numMask],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return ("Por favor, insira o andar da sala");
+                                    return ("O campo andar da sala não está preenchido");
                                   }
                                   return null;
                                 },
@@ -142,7 +142,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 maxLines: null,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return ("Por favor, insira uma descrição");
+                                    return ("O campo descrição da sala não está preenchido");
                                   }
                                   return null;
                                 },
@@ -158,7 +158,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                       keyboardType: TextInputType.number,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return ("Por favor, insira o tamanho da sala");
+                                          return ("O campo tamanho da sala não está preenchido corretamente");
                                         }
                                         return null;
                                       },
@@ -251,7 +251,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
       backgroundColor: AppColors.green600);
 
   final snackBarError = SnackBar(
-      content: Text("Algum campo invalido", textAlign: TextAlign.center),
+      content: Text("Alguns campos estáo incorretos/não preenchidos",
+          textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
   Future<bool?> createRoom() async {

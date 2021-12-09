@@ -64,7 +64,7 @@ class _SingUpPageState extends State<SingUpPage> {
                             keyboardType: TextInputType.text,
                             validator: (name) {
                               if (name == null || name.isEmpty) {
-                                return ("Por favor, insira seu nome");
+                                return ("O campo nome não está preenchdio corretamente");
                               }
                               return null;
                             }),
@@ -78,7 +78,7 @@ class _SingUpPageState extends State<SingUpPage> {
                           keyboardType: TextInputType.emailAddress,
                           validator: (email) {
                             if (email == null || email.isEmpty) {
-                              return ("Por favor, insira seu e-mail");
+                              return ("O campo e-mail não está preenchido corretamente");
                             }
                             return null;
                           },
@@ -93,7 +93,7 @@ class _SingUpPageState extends State<SingUpPage> {
                           keyboardType: TextInputType.text,
                           validator: (password) {
                             if (password == null || password.isEmpty) {
-                              return ("Por favor, insira sua senha");
+                              return ("O campo senha não está preenchido corretamente");
                             }
                             return null;
                           },
@@ -150,7 +150,8 @@ class _SingUpPageState extends State<SingUpPage> {
       backgroundColor: AppColors.green600);
 
   final snackBarError = SnackBar(
-      content: Text("E-mail não autorizado", textAlign: TextAlign.center),
+      content: Text("Este e-mail não tem permissões para se cadastrar",
+          textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
   Future<bool> signUp() async {
