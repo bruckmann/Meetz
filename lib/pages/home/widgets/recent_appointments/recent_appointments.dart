@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:meetz/core/app_colors.dart';
 import 'package:meetz/core/core.dart';
-import 'package:meetz/pages/home/widgets/check_appointments/check_appointments_widget.dart';
 import 'package:meetz/pages/home/widgets/empty_appointment/empty_appointment_widget.dart';
 import 'package:meetz/shared/models/appointment_model.dart';
 import 'package:http/http.dart' as http;

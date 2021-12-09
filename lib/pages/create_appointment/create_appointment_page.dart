@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
-import 'package:meetz/pages/code_appoitment/code_appointment.dart';
+import 'package:meetz/pages/appointment_code/appointment_code.dart';
 import 'package:meetz/pages/info_room/info_room_page.dart';
 import 'package:meetz/shared/models/info_room_model.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
@@ -206,7 +206,7 @@ class _CreateAppointmentPageState extends State<CreateAppointmentPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  CodeAppointmentPage(
+                                                  AppointmentCodePage(
                                                       cod: response[1])));
                                     } else {
                                       ScaffoldMessenger.of(context)
