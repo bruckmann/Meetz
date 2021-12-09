@@ -111,7 +111,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return ("Por favor, insira o nome da sala");
+                                              return ("O campo nome da sala não está preenchido");
                                             }
                                             return null;
                                           },
@@ -124,7 +124,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return ("Por favor, insira uma URL de imagem");
+                                                return ("O campo URL da imagem não está preenchido");
                                               }
                                               return null;
                                             }),
@@ -138,7 +138,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return ("Por favor, insira o máximo de pessoas");
+                                              return ("O campo número máximo de pessoas não está preenchido");
                                             }
                                             return null;
                                           },
@@ -152,7 +152,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return ("Por favor, insira o número da sala");
+                                              return ("O campo número da sala não está preenchido");
                                             }
                                             return null;
                                           },
@@ -166,7 +166,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return ("Por favor, insira o andar da sala");
+                                              return ("O campo andar da sala não está preenchido");
                                             }
                                             return null;
                                           },
@@ -182,7 +182,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return ("Por favor, insira uma descrição");
+                                              return ("O campo descrição da sala não está preenchido");
                                             }
                                             return null;
                                           },
@@ -202,7 +202,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
                                                 validator: (value) {
                                                   if (value == null ||
                                                       value.isEmpty) {
-                                                    return ("Por favor, insira o tamanho da sala");
+                                                    return ("O campo tamanho da sala não está preenchido");
                                                   }
                                                   return null;
                                                 },
@@ -255,7 +255,7 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
 
                                         //RememberMeWidget(),
                                         FormButtonWidget(
-                                            text: 'ATUALIZAR',
+                                            text: 'SALVAR EDIÇÃO',
                                             onPressed: () async {
                                               FocusScopeNode currentFocus =
                                                   FocusScope.of(context);
@@ -303,7 +303,8 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
       backgroundColor: AppColors.green600);
 
   final snackBarError = SnackBar(
-      content: Text("Algum campo invalido", textAlign: TextAlign.center),
+      content: Text("Alguns campos estáo incorretos/não preenchidos",
+          textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
   Future<bool?> updateRoom() async {

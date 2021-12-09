@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:meetz/core/app_colors.dart';
 import 'package:meetz/core/core.dart';
-import 'package:meetz/pages/home/widgets/empty_appointment/empty_appointment_widget.dart';
 import 'package:meetz/shared/models/appointment_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:meetz/shared/widgets/empty_appointment_widget.dart';
 import 'package:meetz/shared/widgets/room_loading_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -32,7 +32,7 @@ class _RecentAppointmentsWidgetState extends State<RecentAppointmentsWidget> {
     return FutureBuilder<List<AppointmentModel>?>(
         future: futureAppointment,
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data!.isEmpty) {
+          if (snapshot.data == null || snapshot.data!.isEmpty) {
             return EmptyAppointmentsWidget();
           } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             return ListView.separated(

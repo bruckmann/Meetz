@@ -63,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
                           keyboardType: TextInputType.emailAddress,
                           validator: (email) {
                             if (email == null || email.isEmpty) {
-                              return ("Por favor, insira seu E-mail");
+                              return ("O campo e-mail não está preenchido corretamente");
                             }
                             return null;
                           },
@@ -78,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                           keyboardType: TextInputType.text,
                           validator: (password) {
                             if (password == null || password.isEmpty) {
-                              return ("Por favor, insira sua senha");
+                              return ("O campo senha não está preenchido corretamente");
                             }
                             return null;
                           },
@@ -130,7 +130,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   final snackBarError = SnackBar(
-      content: Text("Usuário ou senha inválido", textAlign: TextAlign.center),
+      content: Text("E-mail ou senha inválidos", textAlign: TextAlign.center),
       backgroundColor: Colors.redAccent);
 
   Future<bool> signIn() async {

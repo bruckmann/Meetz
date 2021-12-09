@@ -23,6 +23,8 @@ class CheckAppointmentsPage extends StatefulWidget {
 
 class _CheckAppointmentsPageState extends State<CheckAppointmentsPage> {
   late Future<List<AppointmentModel>?> futureAppointment;
+  late Future<InfoRoomModel?> futureRoom;
+  late int id_room;
 
   @override
   void initState() {
@@ -53,47 +55,72 @@ class _CheckAppointmentsPageState extends State<CheckAppointmentsPage> {
                       child: FutureBuilder<List<AppointmentModel>?>(
                           future: futureAppointment,
                           builder: (context, snapshot) {
-                            if (snapshot.hasData && snapshot.data!.isEmpty) {
+                            if (snapshot.data == null ||
+                                snapshot.data!.isEmpty) {
                               return EmptyAppointmentsWidget();
                             } else if (snapshot.hasData &&
                                 snapshot.data!.isNotEmpty) {
                               return SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: ListView.separated(
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        itemCount: snapshot.data!.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          Future<InfoRoomModel?> room =
-                                              fetchRoom(snapshot.data![index]
-                                                  .meeting_room_id);
-                                          return Container(
-                                            height: 280,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey.shade100,
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black12,
-                                                  blurRadius: 6.0,
-                                                  offset: Offset(0, 2),
+                                child: Container(
+                                  height: 500,
+                                  child: ListView.separated(
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      id_room =
+                                          snapshot.data![index].meeting_room_id;
+                                      return FutureBuilder<InfoRoomModel?>(
+                                          future: fetchRoom(id_room),
+                                          builder: (context, room) {
+                                            if (room.hasData &&
+                                                room.data != null) {
+                                              return Container(
+                                                height: 130,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey.shade100,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius: 6.0,
+                                                      offset: Offset(0, 2),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                            child: Text(""),
-                                          );
-                                        },
-                                        separatorBuilder:
-                                            (BuildContext context, int index) =>
-                                                const Divider(
-                                                    color: Colors.transparent),
-                                      ),
-                                    ),
-                                  ],
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                          "Sala ${room.data!.name} - ${snapshot.data![index].day}/${snapshot.data![index].month}/${snapshot.data![index].year}",
+                                                          style:
+                                                              infoRoomTextStyle),
+                                                      SizedBox(height: 20),
+                                                      Text(
+                                                          "Horário: ${snapshot.data![index].initial_hour}:${snapshot.data![index].end_hour}"),
+                                                      Text(
+                                                        "Observação: ${snapshot.data![index].note}",
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            return FutureLoadingWidget();
+                                          });
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const Divider(
+                                                color: Colors.transparent),
+                                  ),
                                 ),
                               );
                             } else if (snapshot.hasError) {
