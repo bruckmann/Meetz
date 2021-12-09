@@ -56,10 +56,32 @@ final buttonNoStyle = ButtonStyle(
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
         EdgeInsets.symmetric(vertical: 20)));
 
-final buttonCreateRoomStyle = ButtonStyle(
+final buttonGreenStyle = ButtonStyle(
     elevation: MaterialStateProperty.all<double>(5.0),
     shape: MaterialStateProperty.all<OutlinedBorder>(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.00))),
     backgroundColor: MaterialStateProperty.all<Color>(AppColors.green800),
     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
         EdgeInsets.symmetric(horizontal: 30.00, vertical: 20)));
+
+final buttonRedStyle = ButtonStyle(
+    elevation: MaterialStateProperty.all<double>(5.0),
+    shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.00))),
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
+    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(horizontal: 30.00, vertical: 20)));
+
+final TextButtonStyle = TextStyle(
+  color: Colors.white,
+  letterSpacing: 1.5,
+  fontSize: 18.0,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'OpenSans',
+);
+
+final infoRoomTextStyle = TextStyle(
+    color: AppColors.green800,
+    fontFamily: 'OpenSans',
+    fontSize: 18,
+    fontWeight: FontWeight.w500);

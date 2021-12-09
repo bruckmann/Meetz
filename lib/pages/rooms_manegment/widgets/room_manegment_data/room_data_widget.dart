@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meetz/pages/info_room_manegment/info_room_manegment_page.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/list_view_widget.dart';
 

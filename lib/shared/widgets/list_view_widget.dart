@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
-import 'package:meetz/pages/create_appointment/create_appointment_page.dart';
-import 'package:meetz/pages/info_room_manegment/info_room_manegment_page.dart';
+import 'package:meetz/pages/info_room/info_room_page.dart';
 
 class ListViewWidget extends StatelessWidget {
   final bool isManegment;
@@ -68,21 +67,13 @@ class ListViewWidget extends StatelessWidget {
                             color: AppColors.green800,
                           ),
                           onPressed: () {
-                            if (isManegment) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          InfoRoomManegmentPage(
-                                              id_room: id_room)));
-                            } else {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CreateAppointmentPage(
-                                              id_room: id_room)));
-                            }
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InfoRoomPage(
+                                          id_room: id_room,
+                                          isManegment: isManegment,
+                                        )));
                           },
                         ),
                       ],

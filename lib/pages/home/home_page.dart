@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:meetz/pages/home/widgets/recent_appointments/recent_appointments.dart';
 import 'package:meetz/pages/rooms/list_rooms_page.dart';
 import 'package:meetz/pages/rooms_manegment/room_manegment_page.dart';
+import 'package:meetz/shared/widgets/room_loading_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -47,14 +48,6 @@ class _HomePageState extends State<HomePage> {
                   name: snapshot.data!.name,
                   email: snapshot.data!.email,
                   role: snapshot.data!.role,
-                ),
-                bottomSheet: Padding(
-                  padding: const EdgeInsets.only(left: 140, bottom: 10),
-                  child: SvgPicture.asset(
-                    'assets/images/logo.svg',
-                    height: 70,
-                    alignment: Alignment.center,
-                  ),
                 ),
                 backgroundColor: Colors.white,
                 body: Column(
@@ -145,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Container(
                         child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 35),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -169,17 +162,20 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     )),
+                    SizedBox(
+                      height: 80,
+                    ),
+                    SvgPicture.asset(
+                      'assets/images/logo.svg',
+                      width: 120,
+                      height: 80,
+                    )
                   ],
                 ),
               );
             } else if (snapshot.hasError) {}
 
-            return Center(
-                child: SizedBox(
-              height: 50,
-              width: 50,
-              child: CircularProgressIndicator(),
-            ));
+            return FutureLoadingWidget();
           }),
     );
   }

@@ -1,18 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/home/home_page.dart';
-import 'package:meetz/pages/create_room/widgets/input/input_widget.dart';
+import 'package:meetz/shared/widgets/form_input_widget.dart';
 import 'package:meetz/pages/rooms_manegment/room_manegment_page.dart';
 import 'package:meetz/shared/widgets/app_bar_back_widget.dart';
 import 'package:meetz/shared/widgets/page_title_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'widgets/button/button_widget.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import '../../shared/widgets/form_button_widget.dart';
 
 class CreateRoomPage extends StatefulWidget {
   const CreateRoomPage({Key? key}) : super(key: key);
@@ -30,6 +29,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
   final _roomNameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _metersRoomController = TextEditingController();
+  var numMask =
+      new MaskTextInputFormatter(mask: '####', filter: {"#": RegExp(r'[0-9]')});
 
   bool _hasSplit = false;
   bool _hasBoard = false;
@@ -70,7 +71,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              InputWidget(
+                              FormInputWidget(
                                 label: "Insira o nome da sala",
                                 icon: Icons.text_format,
                                 controller: _roomNameController,
@@ -82,7 +83,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   return null;
                                 },
                               ),
-                              InputWidget(
+                              FormInputWidget(
                                   label: "Insira uma URL de imagem",
                                   icon: Icons.image,
                                   controller: _imageController,
@@ -93,15 +94,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                     }
                                     return null;
                                   }),
-                              InputWidget(
+                              FormInputWidget(
                                 label: "Insira o número máximo de pessoas",
                                 icon: Icons.people,
                                 controller: _maxPeopleController,
                                 keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[0-9]'))
-                                ],
+                                mask: [numMask],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return ("Por favor, insira o máximo de pessoas");
@@ -109,11 +107,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   return null;
                                 },
                               ),
-                              InputWidget(
+                              FormInputWidget(
                                 label: "Insira o número da sala",
                                 icon: Icons.room_sharp,
                                 controller: _roomNumberController,
                                 keyboardType: TextInputType.number,
+                                mask: [numMask],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return ("Por favor, insira o número da sala");
@@ -121,15 +120,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   return null;
                                 },
                               ),
-                              InputWidget(
+                              FormInputWidget(
                                 label: "Insira o andar da sala",
                                 icon: Icons.room_sharp,
                                 controller: _floorNumberController,
                                 keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[0-9]'))
-                                ],
+                                mask: [numMask],
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return ("Por favor, insira o andar da sala");
@@ -138,7 +134,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 },
                               ),
 
-                              InputWidget(
+                              FormInputWidget(
                                 label: "Escreva aqui a descrição da sala",
                                 icon: Icons.rtt,
                                 controller: _descriptionController,
@@ -155,7 +151,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 children: [
                                   Expanded(
                                     flex: 1,
-                                    child: InputWidget(
+                                    child: FormInputWidget(
                                       label: "Insira o tamanho da sala",
                                       icon: Icons.rule,
                                       controller: _metersRoomController,
@@ -173,7 +169,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: Text("Diferenciais: "),
+                                child: Text("Especificações: "),
                               ),
                               SwitchListTile(
                                   title: Text('Ar-condicionado'),
@@ -196,7 +192,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                     });
                                   },
                                   secondary: Icon(
-                                    Icons.square_foot,
+                                    Icons.check_box_outline_blank,
                                     color: AppColors.green800,
                                   )),
                               SwitchListTile(
@@ -213,7 +209,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   )),
 
                               //RememberMeWidget(),
-                              RegisterButtonWidget(
+                              FormButtonWidget(
                                   text: 'ADICIONAR',
                                   onPressed: () async {
                                     FocusScopeNode currentFocus =

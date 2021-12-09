@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/core/app_styles.dart';
 
-class RegisterButtonWidget extends StatelessWidget {
+class FormButtonWidget extends StatelessWidget {
   final Function() onPressed;
   final String text;
-  const RegisterButtonWidget(
+  const FormButtonWidget(
       {Key? key, required this.text, required this.onPressed})
       : super(key: key);
 
@@ -15,17 +15,8 @@ class RegisterButtonWidget extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: buttonCreateRoomStyle,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
+        style: buttonGreenStyle,
+        child: Text(text, style: TextButtonStyle),
       ),
     );
   }
