@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meetz/core/core.dart';
 
-class InputWidget extends StatelessWidget {
+class FormInputWidget extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String? Function(String?) validator;
@@ -10,8 +10,9 @@ class InputWidget extends StatelessWidget {
   final IconData icon;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
+  final List<TextInputFormatter>? mask;
 
-  const InputWidget(
+  const FormInputWidget(
       {Key? key,
       required this.label,
       required this.icon,
@@ -19,7 +20,8 @@ class InputWidget extends StatelessWidget {
       required this.keyboardType,
       required this.validator,
       this.inputFormatters,
-      this.maxLines})
+      this.maxLines,
+      this.mask})
       : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class InputWidget extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         validator: validator,
-        inputFormatters: [],
+        inputFormatters: mask ?? [],
         maxLines: maxLines,
         style: TextStyle(color: AppColors.green800, fontFamily: 'OpenSans'),
         decoration: InputDecoration(

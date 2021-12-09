@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
+import 'package:meetz/pages/check_appointments/check_appointments_page.dart';
 
 class CheckAppointmentsWidget extends StatelessWidget {
   const CheckAppointmentsWidget({Key? key}) : super(key: key);
@@ -8,7 +9,10 @@ class CheckAppointmentsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: buttonNoStyle,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => CheckAppointmentsPage()));
+      },
       child: Row(
         children: [
           Text(

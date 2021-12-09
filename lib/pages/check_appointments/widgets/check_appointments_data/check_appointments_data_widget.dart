@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:meetz/pages/check_appointments/widgets/list_view_appointments/list_view_appointments_dart.dart';
 import 'package:meetz/shared/models/room_model.dart';
 import 'package:meetz/shared/widgets/list_view_widget.dart';
 
-class RoomDataManegmentWidget extends StatelessWidget {
+class RoomDataWidget extends StatelessWidget {
   final List<RoomModel>? list;
 
-  const RoomDataManegmentWidget({
+  const RoomDataWidget({
     Key? key,
     required this.list,
   }) : super(key: key);
@@ -16,8 +17,8 @@ class RoomDataManegmentWidget extends StatelessWidget {
       shrinkWrap: true,
       itemCount: list!.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListViewWidget(
-          isManegment: true,
+        return ListViewAppointmentsWidget(
+          isManegment: false,
           image_url: list![index].image_url,
           name: list![index].name,
           number: list![index].number,

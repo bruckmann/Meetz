@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meetz/core/core.dart';
 import 'package:meetz/pages/info_room/info_room_page.dart';
 
-class ListViewWidget extends StatelessWidget {
+class ListViewAppointmentsWidget extends StatelessWidget {
   final bool isManegment;
   final int id_room;
   final String image_url;
@@ -10,7 +10,7 @@ class ListViewWidget extends StatelessWidget {
   final String number;
   final String floor;
 
-  const ListViewWidget({
+  const ListViewAppointmentsWidget({
     Key? key,
     required this.image_url,
     required this.name,
