@@ -39,7 +39,6 @@ class _InfoRoomPageState extends State<InfoRoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    deleteRoom();
     return SafeArea(
       child: Scaffold(
           appBar: AppBarBackWidget(

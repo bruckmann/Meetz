@@ -46,18 +46,18 @@ class _UpdateRoomPageState extends State<UpdateRoomPage> {
     futureRoom = fetchRoom()
       ..then((result) {
         setState(() {
-          RoomModel? someVal = result;
-          _roomNameController.text = "${someVal!.name}";
-          _roomNumberController.text = "${someVal.number}";
-          _imageController.text = "${someVal.image_url}";
-          _maxPeopleController.text = "${someVal.max_person}";
-          _floorNumberController.text = "${someVal.floor}";
-          _descriptionController.text = "${someVal.description}";
-          _metersRoomController.text = "${someVal.size}";
+          RoomModel? roomValues = result;
+          _roomNameController.text = "${roomValues!.name}";
+          _roomNumberController.text = "${roomValues.number}";
+          _imageController.text = "${roomValues.image_url}";
+          _maxPeopleController.text = "${roomValues.max_person}";
+          _floorNumberController.text = "${roomValues.floor}";
+          _descriptionController.text = "${roomValues.description}";
+          _metersRoomController.text = "${roomValues.size}";
 
-          _hasSplit = someVal.has_split;
-          _hasBoard = someVal.has_board;
-          _hasDatashow = someVal.has_data_show;
+          _hasSplit = roomValues.has_split;
+          _hasBoard = roomValues.has_board;
+          _hasDatashow = roomValues.has_data_show;
         });
       });
   }
