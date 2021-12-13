@@ -7,6 +7,9 @@ Este é um projeto desenvolvido pelos alunos [Joaquim Lagos](https://github.com/
 
 O objetivo desse projeto foi documentar e compreender todo importancia da Analise de Sistemas dentro do desenvolvimento. Desenvolvemos do zero uma solução para gerenciamento e reservas de salas de reunião.
 
+Projeto funcionando:
+[![Watch the video](https://img.youtube.com/vi/2VwV6reEGBw/maxresdefault.jpg)](https://youtu.be/2VwV6reEGBw)
+
 ------
 
 ## Requisitos do Projeto :heavy_check_mark:
@@ -14,8 +17,8 @@ O objetivo desse projeto foi documentar e compreender todo importancia da Analis
 ### Documentos ~/__docs__
 * Visão
 * Regras de Negócio
-* Modelo de casos de uso
-* Casos de Uso/Histórias
+* Modelo de Casos de Uso
+* Especificação Casos de Uso
 * Especificação de Interface
 * Especificação Suplementar
 * Glossario
