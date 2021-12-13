@@ -11,7 +11,7 @@ O objetivo desse projeto foi documentar e compreender todo importancia da Analis
 
 ## Requisitos do Projeto :heavy_check_mark:
 
-# Documentos entregues ~/__docs__
+### Documentos ~/__docs__
 * Visão
 * Regras de Negócio
 * Modelo de casos de uso
@@ -21,7 +21,7 @@ O objetivo desse projeto foi documentar e compreender todo importancia da Analis
 * Glossario
 * Gerenciamento de riscos
 
-# Aplicação
+### Aplicação
 * Desenvolvimento da aplicação documentada.
 
 ------
