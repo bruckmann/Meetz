@@ -60,167 +60,179 @@ class _CreateAppointmentPageState extends State<CreateAppointmentPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PageTitleWidget(title: "Agendar sala"),
-                Row(children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      widget.room!.image_url,
-                      width: 180,
-                      height: 120,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text('${widget.room!.name}',
-                              style: roomTitleDecorationStyle),
-                          Text(
-                              "Sala: ${widget.room!.number} - ${widget.room!.floor}º andar",
-                              style: roomTextDecorationStyle),
-                          Text("Descrição: ${widget.room!.description}",
-                              style: roomTextDecorationStyle),
-                        ],
-                      ),
-                    ),
-                  ),
-                ]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Form(
-                      key: _formkey,
-                      child: SingleChildScrollView(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            DateTimePicker(
-                              type: DateTimePickerType.date,
-                              dateMask: 'd MMM, yyyy',
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100),
-                              icon: Icon(Icons.event),
-                              dateLabelText: 'Data',
-                              controller: _dateController,
-                              selectableDayPredicate: (date) {
-                                if (date.weekday == 6 || date.weekday == 7) {
-                                  return false;
-                                }
-                                return true;
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return ("Por favor, insira o horário de inicio");
-                                }
-                                return null;
-                              },
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              widget.room!.image_url,
+                              width: 180,
+                              height: 120,
+                              fit: BoxFit.fill,
                             ),
-
-                            DateTimePicker(
-                              type: DateTimePickerType.time,
-                              icon: Icon(Icons.watch_later_outlined),
-                              timeLabelText: "Horário de inicio",
-                              controller: _initial_hourController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return ("Por favor, insira o horário de inicio");
-                                }
-
-                                int hour = int.parse(value.split(":")[0]);
-                                int minute = int.parse(value.split(":")[1]);
-
-                                if (hour < 06 || hour > 18) {
-                                  return "Por favor, insira um horário válido";
-                                } else if (minute != 00 && minute != 30) {
-                                  return "Por favor, insira um horário válido";
-                                }
-                                return null;
-                              },
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('${widget.room!.name}',
+                                      style: roomTitleDecorationStyle),
+                                  Text(
+                                      "Sala: ${widget.room!.number} - ${widget.room!.floor}º andar",
+                                      style: roomTextDecorationStyle),
+                                  Text("Descrição: ${widget.room!.description}",
+                                      style: roomTextDecorationStyle),
+                                ],
+                              ),
                             ),
-                            DateTimePicker(
-                              type: DateTimePickerType.time,
-                              icon: Icon(Icons.watch_later),
-                              timeLabelText: "Hora de encerramento",
-                              controller: _end_hourController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return ("Por favor, insira o horário de inicio");
-                                }
+                          ),
+                        ]),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Form(
+                              key: _formkey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  DateTimePicker(
+                                    type: DateTimePickerType.date,
+                                    dateMask: 'd MMM, yyyy',
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+                                    icon: Icon(Icons.event),
+                                    dateLabelText: 'Data',
+                                    controller: _dateController,
+                                    selectableDayPredicate: (date) {
+                                      if (date.weekday == 6 ||
+                                          date.weekday == 7) {
+                                        return false;
+                                      }
+                                      return true;
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return ("Por favor, insira o horário de inicio");
+                                      }
+                                      return null;
+                                    },
+                                  ),
 
-                                int hour = int.parse(value.split(":")[0]);
-                                int minute = int.parse(value.split(":")[1]);
+                                  DateTimePicker(
+                                    type: DateTimePickerType.time,
+                                    icon: Icon(Icons.watch_later_outlined),
+                                    timeLabelText: "Horário de inicio",
+                                    controller: _initial_hourController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return ("Por favor, insira o horário de inicio");
+                                      }
 
-                                if (hour < 06 || hour > 18) {
-                                  return "Por favor, insira um horário válido";
-                                } else if (minute != 00 && minute != 30) {
-                                  return "Por favor, insira um horário válido";
-                                }
-                              },
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(
-                                  "Aceitamos agendamento apenas em horário comercial (6:00 às 18:00) e de 30 em 30 minutos",
-                                  style: TextStyle(fontSize: 8)),
-                            ),
-                            FormInputWidget(
-                              label: "Observações",
-                              icon: Icons.rtt,
-                              controller: _noteController,
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return ("Por favor, insira uma observação");
-                                }
-                                return null;
-                              },
-                            ),
-                            //RememberMeWidget(),
-                            FormButtonWidget(
-                                text: 'AGENDAR',
-                                onPressed: () async {
-                                  FocusScopeNode currentFocus =
-                                      FocusScope.of(context);
-                                  if (_formkey.currentState!.validate()) {
-                                    List? response =
-                                        await createAppointment(widget.id_room);
+                                      int hour = int.parse(value.split(":")[0]);
+                                      int minute =
+                                          int.parse(value.split(":")[1]);
 
-                                    if (!currentFocus.hasPrimaryFocus) {
-                                      currentFocus.unfocus();
-                                    }
-                                    if (response![0] == "success") {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  "Agendamento feito com sucesso",
-                                                  textAlign: TextAlign.center),
-                                              backgroundColor:
-                                                  AppColors.green600));
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AppointmentCodePage(
-                                                      cod: response[1])));
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(response[1],
-                                                  textAlign: TextAlign.center),
-                                              backgroundColor:
-                                                  Colors.redAccent));
-                                    }
-                                  }
-                                })
-                          ],
+                                      if (hour < 06 || hour > 18) {
+                                        return "Por favor, insira um horário válido";
+                                      } else if (minute != 00 && minute != 30) {
+                                        return "Por favor, insira um horário válido";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  DateTimePicker(
+                                    type: DateTimePickerType.time,
+                                    icon: Icon(Icons.watch_later),
+                                    timeLabelText: "Hora de encerramento",
+                                    controller: _end_hourController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return ("Por favor, insira o horário de inicio");
+                                      }
+
+                                      int hour = int.parse(value.split(":")[0]);
+                                      int minute =
+                                          int.parse(value.split(":")[1]);
+
+                                      if (hour < 06 || hour > 18) {
+                                        return "Por favor, insira um horário válido";
+                                      } else if (minute != 00 && minute != 30) {
+                                        return "Por favor, insira um horário válido";
+                                      }
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Text(
+                                        "Aceitamos agendamento apenas em horário comercial (6:00 às 18:00) e de 30 em 30 minutos",
+                                        style: TextStyle(fontSize: 8)),
+                                  ),
+                                  FormInputWidget(
+                                    label: "Observações",
+                                    icon: Icons.rtt,
+                                    controller: _noteController,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return ("Por favor, insira uma observação");
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  //RememberMeWidget(),
+                                  FormButtonWidget(
+                                      text: 'AGENDAR',
+                                      onPressed: () async {
+                                        FocusScopeNode currentFocus =
+                                            FocusScope.of(context);
+                                        if (_formkey.currentState!.validate()) {
+                                          List? response =
+                                              await createAppointment(
+                                                  widget.id_room);
+
+                                          if (!currentFocus.hasPrimaryFocus) {
+                                            currentFocus.unfocus();
+                                          }
+                                          if (response![0] == "success") {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        "Agendamento feito com sucesso",
+                                                        textAlign:
+                                                            TextAlign.center),
+                                                    backgroundColor:
+                                                        AppColors.green600));
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AppointmentCodePage(
+                                                            cod: response[1])));
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(response[1],
+                                                        textAlign:
+                                                            TextAlign.center),
+                                                    backgroundColor:
+                                                        Colors.redAccent));
+                                          }
+                                        }
+                                      })
+                                ],
+                              )),
                         ),
-                      )),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
