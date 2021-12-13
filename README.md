@@ -1,4 +1,7 @@
-# SigmaJS
+# SIGMA Meetz
+
+[![Watch the video](https://img.youtube.com/vi/2VwV6reEGBw/maxresdefault.jpg)](https://youtu.be/2VwV6reEGBw)
+<p style="font-size: 9px;">Clique na imagem para ser redirecionado ao YouTube caso queira ver o funcionamento da aplicação.</p>
 
 ## Sobre 📰
 
@@ -6,9 +9,6 @@ Este é um projeto desenvolvido pelos alunos [Joaquim Lagos](https://github.com/
 [Felipe Brückmann](https://github.com/bruckmann) e [Jardel Urban](https://github.com/j-rdel) para o Projeto Integrador do 4° semestre de Análise e Desenvolvimento de Sistemas da Faculdade SENAI Florianópolis. 
 
 O objetivo desse projeto foi documentar e compreender todo importancia da Analise de Sistemas dentro do desenvolvimento. Desenvolvemos do zero uma solução para gerenciamento e reservas de salas de reunião.
-
-Projeto funcionando:
-[![Watch the video](https://img.youtube.com/vi/2VwV6reEGBw/maxresdefault.jpg)](https://youtu.be/2VwV6reEGBw)
 
 ------
 
