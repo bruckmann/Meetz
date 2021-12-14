@@ -1,7 +1,7 @@
 # SIGMA Meetz
 
 [![Watch the video](https://img.youtube.com/vi/2VwV6reEGBw/maxresdefault.jpg)](https://youtu.be/2VwV6reEGBw)
-<p style="font-size: 9px;">Clique na imagem para ser redirecionado ao YouTube caso queira ver o funcionamento da aplicação.</p>
+Clique na imagem para ser redirecionado ao YouTube caso queira ver o funcionamento da aplicação.
 
 ## Sobre 📰
 
@@ -25,7 +25,14 @@ O objetivo desse projeto foi documentar e compreender todo importancia da Analis
 * Gerenciamento de riscos
 
 ### Aplicação
-* Desenvolvimento da aplicação documentada.
+
+- Desenvolvimento da aplicação documentada.
+  - [x] Cadastro
+  - [x] Login
+  - [x] Listagem de salas
+  - [x] Aluguel de sala
+  - [x] Gerenciamento de salas
+  - [ ] Gerenciamento de usuários 🔨
 
 ------
 
