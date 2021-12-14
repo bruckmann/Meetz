@@ -164,7 +164,7 @@ class _InfoRoomPageState extends State<InfoRoomPage> {
                             widget.isManegment
                                 ? Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 40),
+                                        horizontal: 5),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,

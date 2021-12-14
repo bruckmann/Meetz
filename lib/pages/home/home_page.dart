@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     )),
                     SizedBox(
-                      height: 80,
+                      height: 20,
                     ),
                     SvgPicture.asset(
                       'assets/images/logo.svg',

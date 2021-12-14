@@ -100,6 +100,7 @@ class _RecentAppointmentsWidgetState extends State<RecentAppointmentsWidget> {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       });
+      print(response.body);
 
       List<dynamic> listResponse = jsonDecode(response.body);
       List<AppointmentModel> list = [];

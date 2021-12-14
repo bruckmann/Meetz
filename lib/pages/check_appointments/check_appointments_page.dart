@@ -62,7 +62,7 @@ class _CheckAppointmentsPageState extends State<CheckAppointmentsPage> {
                                 snapshot.data!.isNotEmpty) {
                               return SingleChildScrollView(
                                 child: Container(
-                                  height: 500,
+                                  height: 450,
                                   child: ListView.separated(
                                     primary: false,
                                     shrinkWrap: true,
@@ -77,7 +77,7 @@ class _CheckAppointmentsPageState extends State<CheckAppointmentsPage> {
                                             if (room.hasData &&
                                                 room.data != null) {
                                               return Container(
-                                                height: 130,
+                                                height: 140,
                                                 decoration: BoxDecoration(
                                                   color: Colors.grey.shade100,
                                                   borderRadius:
